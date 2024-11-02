@@ -1,3 +1,18 @@
+<?php
+session_start();
+ 
+if (isset($_SESSION['user_type'])) {
+ 
+
+  if($_SESSION['user_type'] != "petugas"){
+    header("Location:  ".BASE_URL."/");
+  }
+}else{
+  header("Location:  ".BASE_URL."/");
+
+}
+
+?>
 <aside class="left-sidebar">
       <!-- Sidebar scroll-->
       <div>
@@ -17,7 +32,7 @@
               <span class="hide-menu">Home</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="<?= BASE_URL ?>/petugas/dashboard/index.php" aria-expanded="false">
+              <a class="sidebar-link" href="<?= BASE_URL ?>/petugas/dashboard/" aria-expanded="false">
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>
@@ -27,16 +42,9 @@
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">User Management</span>
             </li>
+            
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-login"></i>
-                </span>
-                <span class="hide-menu">Petugas</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="<?= BASE_URL ?>/petugas/masyarakat/index.php" aria-expanded="false">
+              <a class="sidebar-link" href="<?= BASE_URL ?>/petugas/masyarakat/" aria-expanded="false">
                 <span>
                   <i class="ti ti-user-plus"></i>
                 </span>

@@ -1,3 +1,21 @@
+<?php
+session_start();
+ 
+if (isset($_SESSION['user_type'])) {
+ 
+
+  if($_SESSION['user_type'] != "masyarakat"){
+    header("Location:  ".BASE_URL."/");
+  }
+}else{
+  header("Location:  ".BASE_URL."/");
+
+}
+
+?>
+
+
+
 <aside class="left-sidebar">
       <!-- Sidebar scroll-->
       <div>
@@ -23,7 +41,7 @@
                 <span class="hide-menu">Dashboard</span>
               </a>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="#" aria-expanded="false">
+              <a class="sidebar-link" href="<?= BASE_URL ?>/masyarakat/pengaduan/index.php" aria-expanded="false">
                 <span>
                <i class="ti ti-mail-forward"></i>
                 </span>

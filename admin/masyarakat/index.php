@@ -1,4 +1,5 @@
-<?php include('../../layouts/header.php');
+<?php include('../../layouts/header.php') ?>
+<?php
 include('functions/crud_masyarakat.php');
 
 //  var_dump(get("SELECT * FROM masyarakat"));
@@ -36,7 +37,7 @@ include('functions/crud_masyarakat.php');
                 <div class="card-body">
 
                     <div class="text-end">
-                        <a href="<?= BASE_URL ?>/petugas/masyarakat/tambah.php" class="btn btn-primary text-white btn-sm mb-3"><i class="ti ti-plus">tambah data masyarakat</i></a>
+                        <a href="<?= BASE_URL ?>/admin/masyarakat/tambah.php" class="btn btn-primary text-white btn-sm mb-3"><i class="ti ti-plus">tambah data masyarakat</i></a>
                     </div>
 
                     <table class="table table-striped table-hover">
@@ -63,6 +64,9 @@ include('functions/crud_masyarakat.php');
                                     <td>
                                         <a href="<?= BASE_URL ?>/petugas/masyarakat/ubah.php?nik=<?= $d['nik']; ?>"><i class="ti ti-pencil"></i></a>
                                         <a href="<?= BASE_URL ?>/petugas/masyarakat/hapus.php?nik=<?= $d['nik']; ?>"><i class="ti ti-trash"></i></a>
+                                        <!-- <i class="ti ti-trash-x"></i> -->
+
+
 
                                     </td>
 

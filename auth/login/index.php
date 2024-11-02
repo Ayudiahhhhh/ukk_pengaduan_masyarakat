@@ -10,6 +10,8 @@ include('../function/login.php');
 ?>
 <?php 
 // var_dump($_SESSION);
+
+// var_dump($_SESSION); die;
 if (isset($_SESSION['user_type'])) {
     if($_SESSION['user_type'] == "masyarakat"){
         header("Location: ".BASE_URL."/masyarakat/dashboard");

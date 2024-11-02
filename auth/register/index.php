@@ -1,14 +1,19 @@
 <?php include('../../layouts/header.php') ?>
 <?php
-include('../function/login.php');
-    if (isset($_POST['username'])) {
-        if(login($_POST['username'], $_POST['password']) == false){
-            echo "Username atau password salah.";
-        }        
+include('../function/register.php');
+if (isset($_POST['nik'])) {
+    if(register($_POST) == true){
+        echo"<script>
+        alert('user baru berhasil ditambahkan!');
+        </script>";   
+    }else{
+        echo"<script>
+        alert('user baru gagal ditambahkan!');
+        </script>";  
     }
+    
+}
  
-?>
-<?php 
 // var_dump($_SESSION);
 if (isset($_SESSION['user_type'])) {
     if($_SESSION['user_type'] == "masyarakat"){
@@ -16,9 +21,6 @@ if (isset($_SESSION['user_type'])) {
     }else
     if($_SESSION['user_type'] == "petugas"){
         header("Location: ".BASE_URL."/petugas/dashboard");
-    }else
-    if($_SESSION['user_type'] == "admin"){
-        header("Location:  ".BASE_URL."/admin/dashboard");
     }
 }
 
@@ -39,16 +41,32 @@ if (isset($_SESSION['user_type'])) {
                             </a>
                             <p class="text-center">Your Social Campaigns</p>
                             <form action="" method="post">
+                            <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">nik</label>
+                                    <input type="text" class="form-control" name="nik" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="masukan nik...">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">nama</label>
+                                    <input type="text" class="form-control" name="nama" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="masukan nama...">
+                                </div>
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Username</label>
-                                    <input type="text" class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    <input type="text" class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="masukan username...">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                                    <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="masukan password...">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+                                    <input type="password" class="form-control" name="password2" id="exampleInputPassword1" placeholder="masukan password...">
                                 </div>
                                 <div class="mb-4">
-                                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                                    <input type="password" class="form-control" name="password" id="exampleInputPassword1">
+                                    <label for="exampleInputEmail1" class="form-label">telp</label>
+                                    <input type="number" class="form-control" name="telp" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="masukan no hp...">
                                 </div>
 
-                                <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</button>
+                                <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Register</button>
 
                             </form>
                         </div>

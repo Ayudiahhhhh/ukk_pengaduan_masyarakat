@@ -1,3 +1,70 @@
-https://themewagon.github.io/hvac-new/
+function tambah($post, $file)
+{
+    global $conn;
 
-https://themewagon.github.io/mellow/
+    // Debug: Tampilkan nilai POST, FILE, dan SESSION
+    // var_dump($post);
+    // var_dump($file);
+    // var_dump($_SESSION['user']);
+    // die(); // Hentikan eksekusi untuk melihat output
+
+    // Memeriksa apakah file di-upload
+    if (!isset($file['foto'])) {
+        echo 'File tidak di-upload.';
+        return false;
+    }
+
+    // Memeriksa apakah file berhasil di-upload
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        echo 'Error saat upload file: ' . $file['error'];
+        return false;
+    }
+
+    $filePath = '/opt/lampp/htdocs/pengaduan_masyarakat/assets/';
+    $newFileName = time() . '_' . basename($file['name']);
+    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
+    // Memeriksa tipe file
+    if (!in_array($file['type'], $allowedTypes)) {
+        echo 'Tipe file tidak diizinkan.';
+        return false;
+    }
+
+    $targetFilePath = $filePath . $newFileName;
+
+    // Memindahkan file ke direktori tujuan
+    if (!move_uploaded_file($file['tmp_name'], $targetFilePath)) {
+        echo 'Gagal mengupload file.';
+        return false;
+    }
+
+    // Membuat query SQL
+    $sql = "INSERT INTO `pengaduan` (`status`, `tgl_pengaduan`, `nik`, `isi_laporan`, `foto`) 
+            VALUES ('0', 
+            '" . mysqli_real_escape_string($conn, $post['tgl_pengaduan']) . "', 
+            '" . mysqli_real_escape_string($conn, $_SESSION['user']['nik']) . "', 
+            '" . mysqli_real_escape_string($conn, $post['isiaduan']) . "', 
+            '" . mysqli_real_escape_string($conn, $post['foto']) . "', 
+            '" . mysqli_real_escape_string($conn, $newFileName) . "')";
+            if (mysqli_query($conn, $sql)) {
+              echo "<script>
+              alert('Data berhasil ditambahkan dengan foto: $newFileName');
+              document.location.href = '" . BASE_URL . "/masyarakat/pengaduan';
+              </script>";
+              // Tampilkan gambar
+              echo "<img src='" . BASE_URL . "/assets/$newFileName' alt='Uploaded Image' />";
+        return true; // Berhasil
+    } else {
+        echo "Error: " . mysqli_error($conn);
+        return false; // Gagal
+    }
+}
+ini index
+// Menjalankan query dan memeriksa error
+    if (mysqli_query($conn, $sql)) {
+    echo "<script>
+    alert('Data berhasil ditambahkan dengan foto: $newFileName');
+    document.location.href = '" . BASE_URL . "/masyarakat/pengaduan';
+    </script>";
+}
+foreach (get("SELECT pengaduan.*, masyarakat.nama FROM pengaduan JOIN masyarakat ON masyarakat.nik = pengaduan.nik") as $no => $d) :

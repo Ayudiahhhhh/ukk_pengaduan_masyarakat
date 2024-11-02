@@ -22,6 +22,20 @@ function get($query)
   return $rows;
 }
 
+function changeStatus($get)
+{
+ 
+  global $conn;
+  $status = $get['status'];
+  $id = $get['id'];
+
+  $query = "UPDATE `pengaduan` SET `status`='$status' WHERE `id_pengaduan`='$id'";
+//  var_dump($query);
+//   die;
+  mysqli_query($conn, $query);
+
+  return true;
+}
 
 
 function tambah($post, $file)
@@ -55,13 +69,18 @@ function tambah($post, $file)
           '" . mysqli_real_escape_string($conn, $post['isiaduan']) . "', 
           '" . mysqli_real_escape_string($conn, $newFileName) . "')";
 
-    // var_dump($sql);
-    // die;
+  // var_dump($sql);
+  // die;
     if (mysqli_query($conn, $sql)) {
       return true; // Berhasil
     } else {
       return false; // Gagal
     }
+
+
+
+
+    
   } else {
     return false;
   }
@@ -72,7 +91,7 @@ function tambah($post, $file)
 function hapus($id)
 {
   global $conn;
-  mysqli_query($conn, "DELETE FROM `pengaduan` WHERE id_pengaduan=$id");
+  mysqli_query($conn, "DELETE FROM masyarakat WHERE nik=$id");
 
   return true;
 }
@@ -83,30 +102,32 @@ function ubah($data, $nik)
 {
 
   global $conn;
-  $tgl_pengaduan = htmlspecialchars($data["tgl_pengaduan"]);
-  $nik = htmlspecialchars($data, $_SESSION["user"]["nik"]);
-  $isiaduan = htmlspecialchars($data["isi_laporan"]);
-  $foto = htmlspecialchars($data["foto"]);
+  $nik_new = $data["nik"];
+  $nik = htmlspecialchars($data["nik"]);
+  $nama = htmlspecialchars($data["nama"]);
+  $username = htmlspecialchars($data["username"]);
+  $telp = htmlspecialchars($data["telp"]);
+
 
   if ($nik != $data['nik']) {
 
 
 
-    // Cek di tabel pengaduan
+    // Cek di tabel masyarakat
     // "b", "d", "i", "s
-    $sql = "SELECT * FROM pengaduan WHERE nik = ?";
+    $sql = "SELECT * FROM masyarakat WHERE username = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $data['nik']);
+    $stmt->bind_param("s", $data['username']);
     $stmt->execute();
     $result = $stmt->get_result();
     // var_dump($result);
     // die;
     if ($result->num_rows > 0) {
-      echo "<script> alert('nik sudah terdaftar')</script>";
+      echo "<script> alert('username sudah terdaftar')</script>";
       return false;
     }
 
-    $sql = "SELECT * FROM pengaduan WHERE nik = ?";
+    $sql = "SELECT * FROM masyarakat WHERE nik = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $data['nik']);
     $stmt->execute();
@@ -118,13 +139,15 @@ function ubah($data, $nik)
   }
 
 
-  $query = "UPDATE `pengaduan` SET 
-         tgl_pengaduan = '$tgl_pengaduan',
-          nama =' $nik',
-         isi_laporan = '$isiaduan',
-          foto= '$foto'
+  $query = "UPDATE `masyarakat` SET 
+         nik = '$nik_new',
+          nama =' $nama',
+          username = '$username',
+          telp= '$telp'
           WHERE nik = $nik
   ";
+  
+
   mysqli_query($conn, $query);
 
   return true;
