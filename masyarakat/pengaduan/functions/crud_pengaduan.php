@@ -81,34 +81,36 @@ function hapus($id)
 
 function ubah($data, $nik)
 {
-
+// var_dump(masuk);
+// die;
   global $conn;
+  $id_pengaduan = htmlspecialchars($data["id_pengaduan"]);
   $tgl_pengaduan = htmlspecialchars($data["tgl_pengaduan"]);
   $nik = htmlspecialchars($data, $_SESSION["user"]["nik"]);
   $isiaduan = htmlspecialchars($data["isi_laporan"]);
   $foto = htmlspecialchars($data["foto"]);
 
-  if ($nik != $data['nik']) {
+  if ($id_pengaduan != $data['id_pengaduan']) {
 
 
 
     // Cek di tabel pengaduan
     // "b", "d", "i", "s
-    $sql = "SELECT * FROM pengaduan WHERE nik = ?";
+    $sql = "SELECT * FROM pengaduan WHERE id_pengaduan = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $data['nik']);
+    $stmt->bind_param("s", $data['id_pengaduan']);
     $stmt->execute();
     $result = $stmt->get_result();
     // var_dump($result);
     // die;
     if ($result->num_rows > 0) {
-      echo "<script> alert('nik sudah terdaftar')</script>";
+      echo "<script> alert('id_pengaduan sudah terdaftar')</script>";
       return false;
     }
 
-    $sql = "SELECT * FROM pengaduan WHERE nik = ?";
+    $sql = "SELECT * FROM pengaduan WHERE id_pengaduan = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $data['nik']);
+    $stmt->bind_param("s", $data['id_pengaduan']);
     $stmt->execute();
     $result = $stmt->get_result();
     if ($result->num_rows > 0) {
@@ -123,7 +125,7 @@ function ubah($data, $nik)
           nama =' $nik',
          isi_laporan = '$isiaduan',
           foto= '$foto'
-          WHERE nik = $nik
+          WHERE id_pengaduan = $id_pengaduan
   ";
   mysqli_query($conn, $query);
 

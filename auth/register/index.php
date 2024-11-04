@@ -5,6 +5,7 @@ if (isset($_POST['nik'])) {
     if(register($_POST) == true){
         echo"<script>
         alert('user baru berhasil ditambahkan!');
+         document.location.href = '" . BASE_URL . "/auth/login';
         </script>";   
     }else{
         echo"<script>
@@ -65,9 +66,8 @@ if (isset($_SESSION['user_type'])) {
                                     <label for="exampleInputEmail1" class="form-label">telp</label>
                                     <input type="number" class="form-control" name="telp" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="masukan no hp...">
                                 </div>
-
-                                <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Register</button>
-
+                             <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Register</button>
+                               
                             </form>
                         </div>
                     </div>

@@ -1,9 +1,7 @@
 <?php
-include('../../database/koneksi.php');
-include('../../layouts/header.php');
 include('./functions/crud_masyarakat.php');
 
-$val = get("SELECT * FROM masyarakat WHERE nik=".$_GET['nik'])[0];
+$d= get("SELECT * FROM masyarakat WHERE nik=".$_GET['nik'])[0];
 // var_dump($val);
 // die;
 
@@ -60,27 +58,27 @@ if (isset($_POST['nik'])) {
                         <div class="container-fluid">
                             <div class="mb-3">
                                 <label for="nama" class="form-label">NIK</label>
-                                <input type="text" class="form-control" id="nama" name="nik" value="<?=$val["nik"]; ?>" required placeholder="masukan nik....">
+                                <input type="text" class="form-control" id="nama" name="nik" value="<?=$d["nik"]; ?>" required placeholder="masukan nik....">
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <div class="text-center"></div>
                                         <label for="nama" class="form-label">Nama</label>
-                                        <input type="text" class="form-control" id="nama" name="nama" value="<?=$val["nama"]; ?>" required placeholder="masukan nama....">
+                                        <input type="text" class="form-control" id="nama" name="nama" value="<?=$d["nama"]; ?>" required placeholder="masukan nama....">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <div class="text-center"></div>
                                         <label for="nama" class="form-label">Username</label>
-                                        <input type="text" class="form-control" id="nama" name="username" value="<?=$val["username"]; ?>" required placeholder="masukan username....">
+                                        <input type="text" class="form-control" id="nama" name="username" value="<?=$d["username"]; ?>" required placeholder="masukan username....">
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="nama" class="form-label">No. Hp</label>
-                                <input type="text" class="form-control" id="nama" name="telp" value="<?=$val["telp"]; ?>" required placeholder="masukan No.hp">
+                                <input type="text" class="form-control" id="nama" name="telp" value="<?=$d["telp"]; ?>" required placeholder="masukan No.hp">
                             </div>
                         </div>
                         <div class="text-end"><button type="submit" class="btn btn-primary">Ubah</button>

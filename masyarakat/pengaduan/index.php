@@ -17,6 +17,20 @@ if (isset($_POST['bsimpan'])) {
         </script>";
     }
 }
+if (isset($_POST['ubahaduan'])) {
+    // cek apakah data berhasil diubah atau tidak
+    if (ubah($_POST, $_POST['id_pengaduan']) == true) {
+        echo "<script>
+            alert('Data masyarakat berhasil diubah!');
+            document.location.href = '" . BASE_URL . "/masyarakat/pengaduan';
+        </script>";
+    } else {
+        echo "<script>
+            alert('Data masyarakat gagal diubah!');
+        </script>";
+    }
+}
+
 ?>
 
 <!-- Body Wrapper -->
@@ -79,7 +93,7 @@ if (isset($_POST['bsimpan'])) {
                                     </div>
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-primary" name="bsimpan" value="1">Simpan</button>
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                     </div>
                                 </form>
                             </div>
@@ -118,22 +132,22 @@ if (isset($_POST['bsimpan'])) {
                                         ?>
                                     </td>
                                     <td>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modalUbah<?= $d['nik']; ?>"><i class="ti ti-pencil"></i></a>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modalUbah<?= $d['id_pengaduan']; ?>"><i class="ti ti-pencil"></i></a>
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#modalHapus<?= $d['id_pengaduan']; ?>"><i class="ti ti-trash"></i></a>
                                     </td>
                                 </tr>
 
                                 <!-- Modal Ubah -->
-                                <div class="modal fade" id="modalUbah<?= $d['nik']; ?>" tabindex="-1" aria-labelledby="modalUbahLabel<?= $d['nik']; ?>" aria-hidden="true">
+                                <div class="modal fade" id="modalUbah<?= $d['id_pengaduan']; ?>" tabindex="-1" aria-labelledby="modalUbahLabel<?= $d['id_pengaduan']; ?>" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalUbah<?= $d['nik']; ?>">Ubah Aduan</h5>
+                                                <h5 class="modal-title" id="modalUbah<?= $d['id_pengaduan']; ?>">Ubah Aduan</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <form action="" method="post" enctype="multipart/form-data">
                                                 <div class="modal-body">
-                                                    <input type="hidden" name="nik" value="<?= $d['nik']; ?>">
+                                                    <input type="hidden" name="id_pengaduan" value="<?= $d['id_pengaduan']; ?>">
                                                     <div class="mb-3">
                                                         <label for="pengadu" class="form-label text-start">Pengadu</label>
                                                         <input type="text" class="form-control" name="pengadu" id="pengadu" readonly value="<?= $_SESSION['user']['nama'] ?>" placeholder="g usah di isi sesuain sama yg login">
@@ -148,8 +162,8 @@ if (isset($_POST['bsimpan'])) {
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-primary" name="bsimpan" value="1">Simpan Perubahan</button>
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary" name="ubahaduan" value="1">Simpan Perubahan</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                                 </div>
                                             </form>
                                         </div>

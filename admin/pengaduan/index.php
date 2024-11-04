@@ -20,12 +20,12 @@ if (isset($_POST['proses'])) {
 if (isset($_GET['id'])) {
     if (changeStatus($_GET) == true) {
         echo "<script>
-            alert('Data berhasil ".$_GET['status']."!');
+            alert('Data berhasil " . $_GET['status'] . "!');
             document.location.href = '" . BASE_URL . "/admin/pengaduan';
         </script>";
     } else {
         echo "<script>
-            alert('Data gagal ".$_GET['status']."!');
+            alert('Data gagal " . $_GET['status'] . "!');
         </script>";
     }
 }
@@ -57,7 +57,7 @@ if (isset($_GET['id'])) {
                 <div class="card-body">
                     <div class="text-end">
                         <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalTambah">
-                            Tambah Aduan
+                        <i class="ti ti-plus">Tambah Aduan</i>
                         </button>
                     </div>
 
@@ -167,7 +167,7 @@ if (isset($_GET['id'])) {
                                                     <a class="btn btn-warning" href="?id=<?= $d['id_pengaduan'] ?>&status=proses">Proses</a>
                                                 <?php } elseif ($d['status'] == 'proses') { ?>
                                                     <a class="btn btn-primary" href="?id=<?= $d['id_pengaduan'] ?>&status=selesai">Selesai</a>
-                                                <?php  } 
+                                                <?php  }
                                                 ?>
                                             </div>
 

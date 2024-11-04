@@ -64,9 +64,6 @@ include('functions/crud_masyarakat.php');
                                     <td>
                                         <a href="<?= BASE_URL ?>/petugas/masyarakat/ubah.php?nik=<?= $d['nik']; ?>"><i class="ti ti-pencil"></i></a>
                                         <a href="<?= BASE_URL ?>/petugas/masyarakat/hapus.php?nik=<?= $d['nik']; ?>"><i class="ti ti-trash"></i></a>
-                                        <!-- <i class="ti ti-trash-x"></i> -->
-
-
 
                                     </td>
 
