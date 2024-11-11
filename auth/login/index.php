@@ -3,7 +3,17 @@
 include('../function/login.php');
     if (isset($_POST['username'])) {
         if(login($_POST['username'], $_POST['password']) == false){
-            echo "Username atau password salah.";
+            echo "<script>
+                Swal.fire({
+                title: 'error',
+                text: 'Username atau Password Salah!',
+                icon: 'error'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "/auth/login';
+                }
+                });
+        </script>";
         }        
     }
  

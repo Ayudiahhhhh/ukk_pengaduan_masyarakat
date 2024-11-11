@@ -26,7 +26,7 @@ if (isset($_POST['bsimpan'])) {
                 icon: 'info'
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    document.location.href = '" . BASE_URL . "/admin/masyarakat';
+                    document.location.href = '" . BASE_URL . "/petugas/masyarakat';
                 }
                 });
         </script>";
@@ -60,7 +60,7 @@ if (isset($_POST['ubahmasyarakat'])) {
                     document.location.href = '" . BASE_URL . "/admin/masyarakat';
                 }
                 });
-        </script>"; 
+        </script>";
     }
     
 }

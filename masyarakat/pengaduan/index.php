@@ -10,7 +10,7 @@ if (isset($_POST['bsimpan'])) {
         echo "<script>
                 Swal.fire({
                 title: 'Success',
-                text: 'Masyarakat berhasil diubah!',
+                text: 'Pengaduan berhasil ditambahkan!',
                 icon: 'success'
                 }).then((result) => {
                 if (result.isConfirmed) {
@@ -22,7 +22,7 @@ if (isset($_POST['bsimpan'])) {
         echo "<script>
                 Swal.fire({
                 title: 'Error',
-                text: 'Masyarakat gagal diubah!',
+                text: 'Pengaduan gagal ditambahkan!',
                 icon: 'info'
                 }).then((result) => {
                 if (result.isConfirmed) {
@@ -38,7 +38,7 @@ if (isset($_POST['ubahaduan'])) {
         echo "<script>
                 Swal.fire({
                 title: 'Success',
-                text: 'Masyarakat berhasil diubah!',
+                text: 'Pengaduan berhasil diubah!',
                 icon: 'success'
                 }).then((result) => {
                 if (result.isConfirmed) {
@@ -50,11 +50,11 @@ if (isset($_POST['ubahaduan'])) {
         echo "<script>
                 Swal.fire({
                 title: 'Error',
-                text: 'Masyarakat gagal diubah!',
+                text: 'Pengaduan gagal diubah!',
                 icon: 'info'
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    document.location.href = '" . BASE_URL . "/masyarakat/pengadua';
+                    document.location.href = '" . BASE_URL . "/masyarakat/pengaduan';
                 }
                 });
         </script>";

@@ -4,13 +4,28 @@ include('../function/register.php');
 if (isset($_POST['nik'])) {
     if(register($_POST) == true){
         echo"<script>
-        alert('user baru berhasil ditambahkan!');
-         document.location.href = '" . BASE_URL . "/auth/login';
+                Swal.fire({
+                title: 'Success',
+                text: 'user baru berhasil ditambahkan!',
+                icon: 'success'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "/auth/login';
+                }
+                });
         </script>";   
     }else{
         echo"<script>
-        alert('user baru gagal ditambahkan!');
-        </script>";  
+                Swal.fire({
+                title: 'Error',
+                text: 'user baru gagal ditambahkan!',
+                icon: 'info'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "/auth/login';
+                }
+                });
+        </script>";
     }
     
 }
