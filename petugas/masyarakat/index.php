@@ -8,12 +8,27 @@ if (isset($_POST['bsimpan'])) {
     // cek apakah data berhasil ditambahkan atau tidak
     if (tambah($_POST) == true) {
         echo "<script>
-            alert('Data masyarakat berhasil ditambahkan!');
-            document.location.href = '" . BASE_URL . "/petugas/masyarakat';
+                Swal.fire({
+                title: 'Success',
+                text: 'Masyarakat berhasil ditambahkan!',
+                icon: 'success'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "/petugas/masyarakat';
+                }
+                });
         </script>";
     } else {
         echo "<script>
-            alert('Data masyarakat gagal ditambahkan!');
+                Swal.fire({
+                title: 'Error',
+                text: 'Masyarakat gagal ditambahkan!',
+                icon: 'info'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "/petugas/masyarakat';
+                }
+                });
         </script>";
     }
 }
@@ -24,14 +39,28 @@ if (isset($_POST['ubahmasyarakat'])) {
    //cek apakah data berhasil diubah atau tidak
    if(ubah($_POST, $_POST['nik'])== true) {
     echo "<script>
-    alert('data berhasil diubah !');
-    window.location.href = '".BASE_URL."/petugas/masyarakat';
-  </script>";
-
-    }else{
-        echo"<script>
-        alert('data gagal diubah !');
-        </script>";  
+                Swal.fire({
+                title: 'Success',
+                text: 'Masyarakat berhasil diubah!',
+                icon: 'success'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "/petugas/masyarakat';
+                }
+                });
+        </script>";
+    } else {
+        echo "<script>
+                Swal.fire({
+                title: 'Error',
+                text: 'Masyarakat gagal diubah!',
+                icon: 'info'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "/petugas/masyarakat';
+                }
+                });
+        </script>";
     }
     
 }

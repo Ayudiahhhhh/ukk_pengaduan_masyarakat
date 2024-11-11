@@ -8,12 +8,27 @@ if (isset($_POST['bsimpan'])) {
     // cek apakah data berhasil ditambahkan atau tidak
     if (tambah($_POST, $_FILES['foto']) == true) {
         echo "<script>
-            alert('Data berhasil ditambahkan!');
-            document.location.href = '" . BASE_URL . "/masyarakat/pengaduan';
+                Swal.fire({
+                title: 'Success',
+                text: 'Masyarakat berhasil diubah!',
+                icon: 'success'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "/masyarakat/pengaduan';
+                }
+                });
         </script>";
     } else {
         echo "<script>
-            alert('Data gagal ditambahkan!');
+                Swal.fire({
+                title: 'Error',
+                text: 'Masyarakat gagal diubah!',
+                icon: 'info'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "/masyarakat/pengaduan';
+                }
+                });
         </script>";
     }
 }
@@ -21,12 +36,27 @@ if (isset($_POST['ubahaduan'])) {
     // cek apakah data berhasil diubah atau tidak
     if (ubah($_POST, $_FILES) == true) {
         echo "<script>
-            alert('Data masyarakat berhasil diubah!');
-            document.location.href = '" . BASE_URL . "/masyarakat/pengaduan';
+                Swal.fire({
+                title: 'Success',
+                text: 'Masyarakat berhasil diubah!',
+                icon: 'success'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "/masyarakat/pengaduan';
+                }
+                });
         </script>";
     } else {
         echo "<script>
-            alert('Data masyarakat gagal diubah!');
+                Swal.fire({
+                title: 'Error',
+                text: 'Masyarakat gagal diubah!',
+                icon: 'info'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "/masyarakat/pengadua';
+                }
+                });
         </script>";
     }
 }
