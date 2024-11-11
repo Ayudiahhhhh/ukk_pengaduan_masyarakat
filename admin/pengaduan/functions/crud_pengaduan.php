@@ -22,16 +22,39 @@ function get($query)
   return $rows;
 }
 
+function createTanggapan($post)
+{
+  global $conn;
+  $sql = "INSERT INTO `tanggapan`( `id_pengaduan`, `tgl_tanggapan`, `tanggapan`, `id_petugas`) VALUES (
+  '" . mysqli_real_escape_string($conn, $post['id_pengaduan']) . "',
+    '" . mysqli_real_escape_string($conn, $post['tgl_tanggapan']) . "',
+      '" . mysqli_real_escape_string($conn, $post['tanggapan_value']) . "',
+            '" . mysqli_real_escape_string($conn, $_SESSION['user']['id_petugas']) . "')";
+
+  if (mysqli_query($conn, $sql)) {
+    $sql = "UPDATE `pengaduan` SET `status`= '" . mysqli_real_escape_string($conn, $post['status']) . "' WHERE `id_pengaduan`='" . mysqli_real_escape_string($conn, $post['id_pengaduan']) . "'";
+    // var_dump($sql);
+    // die;
+    if (mysqli_query($conn, $sql)) {
+      return true; // Berhasil
+     } else {
+      return false; // Gagal
+    }
+  } else {
+    return false; // Gagal
+  }
+}
 function changeStatus($get)
 {
- 
+  // var_dump($get);
+  // die;
   global $conn;
   $status = $get['status'];
   $id = $get['id'];
-
+  
   $query = "UPDATE `pengaduan` SET `status`='$status' WHERE `id_pengaduan`='$id'";
-//  var_dump($query);
-//   die;
+  //  var_dump($query);
+  //   die;
   mysqli_query($conn, $query);
 
   return true;
@@ -69,18 +92,13 @@ function tambah($post, $file)
           '" . mysqli_real_escape_string($conn, $post['isiaduan']) . "', 
           '" . mysqli_real_escape_string($conn, $newFileName) . "')";
 
-  // var_dump($sql);
-  // die;
+    // var_dump($sql);
+    // die;
     if (mysqli_query($conn, $sql)) {
       return true; // Berhasil
     } else {
       return false; // Gagal
     }
-
-
-
-
-    
   } else {
     return false;
   }
@@ -146,7 +164,7 @@ function ubah($data, $nik)
           telp= '$telp'
           WHERE nik = $nik
   ";
-  
+
 
   mysqli_query($conn, $query);
 

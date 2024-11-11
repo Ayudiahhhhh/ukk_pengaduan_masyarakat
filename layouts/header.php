@@ -11,9 +11,9 @@ define('BASE_URL', 'http://localhost/pengaduan_masyarakat');
   <title> Pengaduan_Masyrakat</title>
   <link rel="shortcut icon" type="image/png" href="<?= BASE_URL ?>/assets/images/logos/logo.jpeg" />
   <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/styles.min.css" />
-  
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
 <body>
-  

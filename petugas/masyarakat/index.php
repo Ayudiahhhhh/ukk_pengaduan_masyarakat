@@ -18,6 +18,24 @@ if (isset($_POST['bsimpan'])) {
     }
 }
 
+//cek apakah tombol submit sudah ditekan atau belum
+if (isset($_POST['ubahmasyarakat'])) {
+
+   //cek apakah data berhasil diubah atau tidak
+   if(ubah($_POST, $_POST['nik'])== true) {
+    echo "<script>
+    alert('data berhasil diubah !');
+    window.location.href = '".BASE_URL."/petugas/masyarakat';
+  </script>";
+
+    }else{
+        echo"<script>
+        alert('data gagal diubah !');
+        </script>";  
+    }
+    
+}
+
 ?>
 <!--  Body Wrapper -->
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
@@ -56,7 +74,7 @@ if (isset($_POST['bsimpan'])) {
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="modalTambahLabel">Tambah Aduan</h5>
+                                    <h5 class="modal-title" id="modalTambahLabel">Tambah Data Masyarakat</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <form action="" method="post">

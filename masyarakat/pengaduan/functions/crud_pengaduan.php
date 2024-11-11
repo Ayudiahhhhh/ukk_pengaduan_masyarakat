@@ -46,7 +46,7 @@ function tambah($post, $file)
   // die;
   // Memindahkan file ke direktori tujuan
   if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
-    echo 'File uploaded successfully as ' . $newFileName;
+    // echo 'File uploaded successfully as ' . $newFileName;
 
     $sql = "INSERT INTO `pengaduan`( `status`, `tgl_pengaduan`, `nik`, `isi_laporan`, `foto`) 
     VALUES ('0', 
@@ -79,54 +79,59 @@ function hapus($id)
 
 
 
-function ubah($data, $nik)
+function ubah($data, $file)
 {
-// var_dump(masuk);
-// die;
+
+
   global $conn;
   $id_pengaduan = htmlspecialchars($data["id_pengaduan"]);
   $tgl_pengaduan = htmlspecialchars($data["tgl_pengaduan"]);
-  $nik = htmlspecialchars($data, $_SESSION["user"]["nik"]);
-  $isiaduan = htmlspecialchars($data["isi_laporan"]);
-  $foto = htmlspecialchars($data["foto"]);
+  $nik = $_SESSION["user"]["nik"];
+  $isiaduan = htmlspecialchars($data["isiaduan"]);
 
-  if ($id_pengaduan != $data['id_pengaduan']) {
+  if ($file) {
+    $filePath = '/opt/lampp/htdocs/pengaduan_masyarakat/assets/images/pengaduan/';
 
+    $newFileName = time(); // Nama baru berdasarkan timestamp dan nama asli
 
-
-    // Cek di tabel pengaduan
-    // "b", "d", "i", "s
-    $sql = "SELECT * FROM pengaduan WHERE id_pengaduan = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $data['id_pengaduan']);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    // var_dump($result);
+    
+    // Memeriksa tipe file
+    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    if (!in_array($file['file']['type'], $allowedTypes)) {
+      
+      return false;
+    }
+    
+    // Mengatur jalur lengkap untuk file yang akan disimpan
+    $targetFilePath = $filePath . $newFileName;
+    // var_dump($_SESSION);
     // die;
-    if ($result->num_rows > 0) {
-      echo "<script> alert('id_pengaduan sudah terdaftar')</script>";
-      return false;
-    }
+    // Memindahkan file ke direktori tujuan
+    
+    if (move_uploaded_file($file['file']['tmp_name'], $targetFilePath)) {
+      $query = "UPDATE `pengaduan` SET 
+         tgl_pengaduan = '$tgl_pengaduan',
+          nik ='$nik',
+         isi_laporan = '$isiaduan',
+          foto= '$newFileName'
+          WHERE id_pengaduan = $id_pengaduan
+  ";
+    } else {
 
-    $sql = "SELECT * FROM pengaduan WHERE id_pengaduan = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $data['id_pengaduan']);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-      echo "<script> alert('data anda sudah terdaftar')</script>";
       return false;
     }
+  } else {
+    $query = "UPDATE `pengaduan` SET 
+         tgl_pengaduan = '$tgl_pengaduan',
+          nik ='$nik',
+         isi_laporan = '$isiaduan'
+ 
+          WHERE id_pengaduan = $id_pengaduan
+  ";
   }
 
 
-  $query = "UPDATE `pengaduan` SET 
-         tgl_pengaduan = '$tgl_pengaduan',
-          nama =' $nik',
-         isi_laporan = '$isiaduan',
-          foto= '$foto'
-          WHERE id_pengaduan = $id_pengaduan
-  ";
+
   mysqli_query($conn, $query);
 
   return true;

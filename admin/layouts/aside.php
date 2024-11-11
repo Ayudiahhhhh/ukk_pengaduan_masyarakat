@@ -65,6 +65,12 @@ if (isset($_SESSION['user_type'])) {
             <span class="hide-menu">Data Aduan</span>
           </a>
         </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link" href="#" aria-expanded="false">
+            <i class="ti ti-layout-dashboard"></i>
+            </span>
+            <span class="hide-menu">Dashboard</span>
+          </a>
       </ul>
     </nav>
     <!-- End Sidebar navigation -->

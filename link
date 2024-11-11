@@ -68,3 +68,99 @@ ini index
     </script>";
 }
 foreach (get("SELECT pengaduan.*, masyarakat.nama FROM pengaduan JOIN masyarakat ON masyarakat.nik = pengaduan.nik") as $no => $d) :
+
+
+
+
+
+    ALTER TABLE pengaduan ADD COLUMN tanggapan TEXT;
+
+
+    <form action="proses_tanggapan.php" method="POST">
+    <input type="hidden" name="id_pengaduan" value="<?= $d['id_pengaduan']; ?>" />
+    
+    <div class="mb-3">
+        <label for="tanggapan" class="form-label">Tanggapan</label>
+        <textarea class="form-control" name="tanggapan" id="tanggapan" rows="3"><?= $d['tanggapan']; ?></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="status" class="form-label">Status</label>
+        <select class="form-select" name="status" id="status">
+            <option value="setuju" <?= ($d['status'] == 'setuju') ? 'selected' : ''; ?>>Setuju</option>
+            <option value="tolak" <?= ($d['status'] == 'tolak') ? 'selected' : ''; ?>>Tolak</option>
+        </select>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+    </div>
+</form>
+
+
+
+<?php
+session_start();
+include('../../database/koneksi.php');
+
+// Pastikan data dikirim lewat POST
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $id_pengaduan = $_POST['id_pengaduan'];
+    $tanggapan = $_POST['tanggapan'];
+    $status = $_POST['status'];
+
+    // Query untuk menyimpan tanggapan ke database
+    $sql = "UPDATE pengaduan SET tanggapan = ?, status = ? WHERE id_pengaduan = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssi", $tanggapan, $status, $id_pengaduan);
+
+    if ($stmt->execute()) {
+        echo "<script>
+                alert('Tanggapan berhasil disimpan!');
+                window.location.href = '" . BASE_URL . "/admin/pengaduan';
+              </script>";
+    } else {
+        echo "<script>
+                alert('Tanggapan gagal disimpan!');
+              </script>";
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+?>
+
+
+<textarea class="form-control" name="tanggapan" id="tanggapan" rows="3"><?= $d['tanggapan']; ?></textarea>
+
+
+<a href="change_status.php?id=<?= $d['id_pengaduan']; ?>&status=proses" class="btn btn-warning">Proses</a>
+<a href="change_status.php?id=<?= $d['id_pengaduan']; ?>&status=selesai" class="btn btn-success">Selesai</a>
+
+
+
+<?php
+include('../../database/koneksi.php');
+
+if (isset($_GET['id']) && isset($_GET['status'])) {
+    $id_pengaduan = $_GET['id'];
+    $status = $_GET['status'];
+
+    $sql = "UPDATE pengaduan SET status = ? WHERE id_pengaduan = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("si", $status, $id_pengaduan);
+
+    if ($stmt->execute()) {
+        echo "<script>
+                alert('Status pengaduan berhasil diperbarui!');
+                window.location.href = '" . BASE_URL . "/admin/pengaduan';
+              </script>";
+    } else {
+        echo "<script>
+                alert('Gagal memperbarui status!');
+              </script>";
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+?>
+ jadikan tanggapan yang ada dimodal lihat konek didatabase pengaduan masyarakat 
