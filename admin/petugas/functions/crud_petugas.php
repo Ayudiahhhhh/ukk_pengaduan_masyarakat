@@ -46,7 +46,7 @@ function tambah($post)
 function hapus($id)
 {
   global $conn;
-  mysqli_query($conn, "DELETE FROM `users` WHERE id_petugas=$id");
+  mysqli_query($conn, "DELETE FROM `users` WHERE id_petugas = '$id'");
   // var_dump($id);
   // die;
   return true;

@@ -7,7 +7,7 @@ include('../function/login.php');
                 Swal.fire({
                 title: 'error',
                 text: 'Username atau Password Salah!',
-                icon: 'error'
+                icon: 'info'
                 }).then((result) => {
                 if (result.isConfirmed) {
                     document.location.href = '" . BASE_URL . "/auth/login';

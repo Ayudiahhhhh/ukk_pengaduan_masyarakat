@@ -3,7 +3,34 @@ session_start();
 include('../../database/koneksi.php');
 include('../../layouts/header.php');
 include('./functions/crud_masyarakat.php');
-
+if (isset($_GET["nik"])) {
+    $id = $_GET["nik"];
+    if(hapus($id) > 0){
+            echo"<script>
+                    Swal.fire({
+                    title: 'Success',
+                    text: 'Masyarakat berhasil dihapus!',
+                    icon: 'success'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.location.href = '" . BASE_URL . "/petugas/masyarakat';
+                    }
+                    });
+            </script>";
+        } else {
+            echo "<script>
+                    Swal.fire({
+                    title: 'Error',
+                    text: 'Masyarakat gagal dihapus!',
+                    icon: 'info'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.location.href = '" . BASE_URL . "/petugas/masyarakat';
+                    }
+                    });
+            </script>";
+        }
+}
 if (isset($_POST['bsimpan'])) {
     // cek apakah data berhasil ditambahkan atau tidak
     if (tambah($_POST) == true) {
@@ -227,7 +254,7 @@ if (isset($_POST['ubahmasyarakat'])) {
                                                 <input type="hidden" value="<?= $d['nik']; ?>">
                                             </div>
                                             <div class="modal-footer">
-                                                <a href="hapus.php?nik=<?= $d['nik']; ?>" class="btn btn-danger">Hapus</a>
+                                                <a href="?nik=<?= $d['nik']; ?>" class="btn btn-danger">Hapus</a>
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                             </div>
                                         </div>

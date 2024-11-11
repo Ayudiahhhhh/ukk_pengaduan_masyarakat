@@ -64,7 +64,7 @@ if (isset($_GET['id'])) {
         echo "<script>
                 Swal.fire({
                 title: 'Success',
-                text: 'Penagduuan berhasil ditambahkan!',
+                text: 'Pengaduan berhasil ditambahkan!',
                 icon: 'success'
                 }).then((result) => {
                 if (result.isConfirmed) {

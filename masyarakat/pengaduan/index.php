@@ -3,6 +3,34 @@ session_start();
 include('../../database/koneksi.php');
 include('../../layouts/header.php');
 include('./functions/crud_pengaduan.php');
+if ($_GET["id_pengaduan"]) {
+    $id = $_GET["id_pengaduan"];
+if(hapus($id) > 0){
+        echo"<script>
+                Swal.fire({
+                title: 'Success',
+                text: 'Pengaduan berhasil dihapus!',
+                icon: 'success'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "/masyarakat/pengaduan';
+                }
+                });
+        </script>";
+    } else {
+        echo "<script>
+                Swal.fire({
+                title: 'Error',
+                text: 'Pengaduan gagal dihapus!',
+                icon: 'info'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "/masyarakat/pengaduan';
+                }
+                });
+        </script>";
+    }
+}
 
 if (isset($_POST['bsimpan'])) {
     // cek apakah data berhasil ditambahkan atau tidak
@@ -253,7 +281,7 @@ if (isset($_POST['ubahaduan'])) {
                                     <input type="hidden" value="<?= $d['id_pengaduan']; ?>">
                                 </div>
                                 <div class="modal-footer">
-                                    <a href="hapus.php?id_pengaduan=<?= $d['id_pengaduan']; ?>" class="btn btn-danger">Hapus</a>
+                                    <a href="?id_pengaduan=<?= $d['id_pengaduan']; ?>" class="btn btn-danger">Hapus</a>
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                                 </div>
                             </div>

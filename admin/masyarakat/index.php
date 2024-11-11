@@ -3,7 +3,35 @@ session_start();
 include('../../database/koneksi.php');
 include('../../layouts/header.php');
 include('./functions/crud_masyarakat.php');
-
+if (isset($_GET["nik"])) {
+    $id = $_GET["nik"];
+    if (hapus($id) > 0) {
+        echo "
+        <script>
+                Swal.fire({
+                title: 'Success',
+                text: 'Masyarakat berhasil dihapus!',
+                icon: 'success'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "/admin/masyarakat';
+                }
+                });
+        </script>";
+    } else {
+        echo "<script>
+                Swal.fire({
+                title: 'Error',
+                text: 'Masyarakat gagal dihapus!',
+                icon: 'info'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "/admin/masyarakat';
+                }
+                });
+        </script>";
+    }
+}
 if (isset($_POST['bsimpan'])) {
     // cek apakah data berhasil ditambahkan atau tidak
     if (tambah($_POST) == true) {
@@ -36,9 +64,9 @@ if (isset($_POST['bsimpan'])) {
 //cek apakah tombol submit sudah ditekan atau belum
 if (isset($_POST['ubahmasyarakat'])) {
 
-   //cek apakah data berhasil diubah atau tidak
-   if(ubah($_POST, $_POST['nik'])== true) {
-    echo "<script>
+    //cek apakah data berhasil diubah atau tidak
+    if (ubah($_POST, $_POST['nik']) == true) {
+        echo "<script>
                 Swal.fire({
                 title: 'Success',
                 text: 'Masyarakat berhasil diubah!',
@@ -62,7 +90,6 @@ if (isset($_POST['ubahmasyarakat'])) {
                 });
         </script>";
     }
-    
 }
 
 ?>
@@ -170,7 +197,7 @@ if (isset($_POST['ubahmasyarakat'])) {
 
                                 </tr>
 
-                              <!-- Modal Ubah -->
+                                <!-- Modal Ubah -->
                                 <div class="modal fade" id="modalUbah<?= $d['nik']; ?>" tabindex="-1" aria-labelledby="modalUbahLabel<?= $d['nik']; ?>" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
@@ -183,27 +210,27 @@ if (isset($_POST['ubahmasyarakat'])) {
                                                     <input type="hidden" name="username_lama" value="<?= $d['username']; ?>">
                                                     <div class="mb-3">
                                                         <label for="nama" class="form-label">NIK</label>
-                                                        <input type="text" class="form-control" id="nama" name="nik" value="<?= $d['nik']; ?>"required placeholder="masukan nik....">
+                                                        <input type="text" class="form-control" id="nama" name="nik" value="<?= $d['nik']; ?>" required placeholder="masukan nik....">
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-6">
                                                             <div class="mb-3">
                                                                 <div class="text-center"></div>
                                                                 <label for="nama" class="form-label">Nama</label>
-                                                                <input type="text" class="form-control" id="nama" name="nama" value="<?= $d['nama']; ?>"required placeholder="masukan nama....">
+                                                                <input type="text" class="form-control" id="nama" name="nama" value="<?= $d['nama']; ?>" required placeholder="masukan nama....">
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="mb-3">
                                                                 <div class="text-center"></div>
                                                                 <label for="nama" class="form-label">Username</label>
-                                                                <input type="text" class="form-control" id="nama" name="username" value="<?= $d['username']; ?>"required placeholder="masukan username....">
+                                                                <input type="text" class="form-control" id="nama" name="username" value="<?= $d['username']; ?>" required placeholder="masukan username....">
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="nama" class="form-label">No. Hp</label>
-                                                        <input type="text" class="form-control" id="nama" name="telp" value="<?= $d['telp']; ?>"required placeholder="masukan No.hp">
+                                                        <input type="text" class="form-control" id="nama" name="telp" value="<?= $d['telp']; ?>" required placeholder="masukan No.hp">
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -227,7 +254,7 @@ if (isset($_POST['ubahmasyarakat'])) {
                                                 <input type="hidden" value="<?= $d['nik']; ?>">
                                             </div>
                                             <div class="modal-footer">
-                                                <a href="hapus.php?nik=<?= $d['nik']; ?>" class="btn btn-danger">Hapus</a>
+                                                <a href="?nik=<?= $d['nik']; ?>" class="btn btn-danger">Hapus</a>
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                             </div>
                                         </div>
