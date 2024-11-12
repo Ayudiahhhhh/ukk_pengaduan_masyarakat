@@ -3,7 +3,34 @@ session_start();
 include('../../database/koneksi.php');
 include('../../layouts/header.php');
 include('./functions/crud_pengaduan.php');
-
+if ($_GET["id_pengaduan"]) {
+    $id = $_GET["id_pengaduan"];
+    if (hapus($id) > 0) {
+        echo "<script>
+                Swal.fire({
+                title: 'Success',
+                text: 'Pengaduan berhasil dihapus!',
+                icon: 'success'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "admin/pengaduan';
+                }
+                });
+        </script>";
+    } else {
+        echo "<script>
+                Swal.fire({
+                title: 'Error',
+                text: 'Pengaduan gagal dihapus!',
+                icon: 'info'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "admin/pengaduan';
+                }
+                });
+        </script>";
+    }
+}
 if (isset($_POST['tanggapan'])) {
     // cek apakah data berhasil ditambahkan atau tidak
     if (createTanggapan($_POST) == true) {
@@ -30,11 +57,11 @@ if (isset($_POST['tanggapan'])) {
                 }
                 });
         </script>";
-}
-if (isset($_POST['proses'])) {
-    // cek apakah data berhasil ditambahkan atau tidak
-    if (tambah($_POST, $_FILES['foto']) == true) {
-        echo "<script>
+    }
+    if (isset($_POST['proses'])) {
+        // cek apakah data berhasil ditambahkan atau tidak
+        if (tambah($_POST, $_FILES['foto']) == true) {
+            echo "<script>
                 Swal.fire({
                 title: 'Success',
                 text: 'Pengaduan berhasil ditambahkan!',
@@ -45,8 +72,8 @@ if (isset($_POST['proses'])) {
                 }
                 });
         </script>";
-    } else {
-        echo "<script>
+        } else {
+            echo "<script>
                 Swal.fire({
                 title: 'Error',
                 text: 'Pengaduan gagal ditambahkan!',
@@ -57,11 +84,11 @@ if (isset($_POST['proses'])) {
                 }
                 });
         </script>";
+        }
     }
-}
-if (isset($_GET['id'])) {
-    if (changeStatus($_GET) == true) {
-        echo "<script>
+    if (isset($_GET['id'])) {
+        if (changeStatus($_GET) == true) {
+            echo "<script>
                 Swal.fire({
                 title: 'Success',
                 text: 'Pengaduan berhasil ditambahkan!',
@@ -72,8 +99,8 @@ if (isset($_GET['id'])) {
                 }
                 });
         </script>";
-    } else {
-        echo "<script>
+        } else {
+            echo "<script>
                 Swal.fire({
                 title: 'Error',
                 text: 'Pengaduan gagal ditambahkan!',
@@ -84,8 +111,8 @@ if (isset($_GET['id'])) {
                 }
                 });
         </script>";
+        }
     }
-}
 }
 
 ?>
@@ -114,50 +141,11 @@ if (isset($_GET['id'])) {
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="text-end">
-                        <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalTambah">
-                            <i class="ti ti-plus">Tambah Aduan</i>
-                        </button>
-                    </div>
 
+<!-- Tombol Export -->
+<button onclick="exportTableToExcel('dataTable', 'data_pengaduan')">Export ke Excel</button>
 
-                    <!-- Modal Tambah -->
-                    <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="modalTambahLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalTambahLabel">Tambah Aduan</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <form action="" method="post" enctype="multipart/form-data">
-                                    <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label for="pengadu" class="form-label text-start">Pengadu</label>
-                                            <input type="text" class="form-control" name="pengadu" id="pengadu" readonly value="<?= $_SESSION['user']['nama'] ?>" placeholder="g usah di isi sesuain sama yg login">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="tglPengaduan" class="form-label text-start">Tgl Pengaduan</label>
-                                            <input type="date" class="form-control" name="tgl_pengaduan" id="tglPengaduan" readonly value="<?= date('Y-m-d') ?>" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="isiaduan" class="form-label">Isi Aduan</label>
-                                            <textarea class="form-control" name="isiaduan" id="isiaduan" rows="3" required></textarea>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="foto" class="form-label text-start">Foto</label>
-                                            <input type="file" class="form-control" name="foto" id="foto" accept="image/*" required>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary" name="bsimpan" value="1">Simpan</button>
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover" id="dataTable">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -281,7 +269,7 @@ if (isset($_GET['id'])) {
                                 <p>Apakah Anda yakin ingin menghapus aduan ini?</p>
                             </div>
                             <div class="modal-footer">
-                                <a href="hapus.php?nik=<?= $d['nik']; ?>" class="btn btn-danger">Hapus</a>
+                                <a href="?nik=<?= $d['nik']; ?>" class="btn btn-danger">Hapus</a>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                             </div>
                         </div>
@@ -294,6 +282,20 @@ if (isset($_GET['id'])) {
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+
+<script>
+    // Fungsi untuk mengekspor tabel ke file Excel (.xlsx)
+    function exportTableToExcel(tableID, filename = '') {
+        var table = document.getElementById(tableID);
+
+        // Menggunakan SheetJS untuk mengonversi tabel menjadi file Excel
+        var wb = XLSX.utils.table_to_book(table, {sheet: "Sheet 1"});
+        
+        // Menyimpan file Excel dengan nama yang diberikan
+        XLSX.writeFile(wb, filename + '.xlsx');
+    }
+</script>
     <?php
     include('../../layouts/footer.php');
     ?>

@@ -32,11 +32,11 @@ include './layouts_landing/header.php';
             <div class="container">
                 <div class="row gy-4 justify-content-center justify-content-lg-between">
                     <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center">
-                        <h1 data-aos="fade-up">Mari Ngadu disini</h1>
+                        <h1 data-aos="fade-up">Selamat datang di pengaduan masyarakat</h1>
                         <p data-aos="fade-up" data-aos-delay="100">keluarkan semua unek-unek disini</p>
-                        <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-                            <a href="<?= BASE_URL ?>auth/register" class="btn-get-started">Register</a>
-                            <a href="<?= BASE_URL ?>auth/login" class="btn-get-started">Login</a>
+                        <div class="d-grid gap-2 d-md-block">
+                            <a href="<?= BASE_URL ?>auth/register" class="btn btn-primary">Daftar</a>
+                            <a href="<?= BASE_URL ?>auth/login" class="btn btn-primary">Login</a>
                         </div>
                     </div>
                     <div class="col-lg-5 order-1 order-lg-2 aduan data-aos=" zoom-out">
