@@ -116,7 +116,56 @@ if (isset($_POST['tanggapan'])) {
 }
 
 ?>
+<style>
+    @keyframes flash {
+        0% {
+            background-color: #ffcc00;
+            /* Warna saat menyala */
+        }
 
+        50% {
+            background-color: #ffffff;
+            /* Warna saat mati (putih) */
+        }
+
+        100% {
+            background-color: #ffcc00;
+            /* Kembali menyala */
+        }
+    }
+
+    .flash-background {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 20px;
+        color: #fff;
+        font-size: 10px;
+        font-weight: bold;
+        text-align: center;
+        background-color: #ffcc00;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        animation: flash 1s infinite;
+    }
+
+    .button-normal {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 20px;
+        font-size: 10px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #007bff; 
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        text-align: center;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+</style>
 <!-- Body Wrapper -->
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
     <!-- Sidebar Start -->
@@ -142,10 +191,10 @@ if (isset($_POST['tanggapan'])) {
                 </div>
                 <div class="card-body">
 
-<!-- Tombol Export -->
-<button onclick="exportTableToExcel('dataTable', 'data_pengaduan')">Export ke Excel</button>
+                    <!-- Tombol Export -->
+                    <button class="btn btn-success btn-sm" type="button" onclick="exportTableToExcel('myTable', 'data_pengaduan')"><img width="20" height="20" src="https://img.icons8.com/fluency/48/ms-excel.png" alt="ms-excel" />Export ke Excel</button>
 
-                    <table class="table table-striped table-hover" id="dataTable">
+                    <table class="table table-striped table-hover" id="myTable">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -164,11 +213,18 @@ if (isset($_POST['tanggapan'])) {
                                     <td><?= $d['tgl_pengaduan']; ?></td>
                                     <td><?= $d['nama']; ?></td>
                                     <td><?= $d['isi_laporan']; ?></td>
-                                    <td><img src="<?= BASE_URL ?>/assets/images/pengaduan/<?= $d['foto']; ?>" alt="Foto Aduan" width="100"></td>
+                                    <td>
+                                        <!-- Membungkus tombol dalam tag <a> yang mengarah ke foto -->
+                                        <a href="<?= BASE_URL ?>/assets/images/pengaduan/<?= $d['foto']; ?>" target="_blank">
+                                            <button class="button-normal">
+                                                Lihat Foto
+                                            </button>
+                                        </a>
+                                    </td>
                                     <td>
                                         <?php
                                         if ($d['status'] == 0) {
-                                            echo "<p class='text-warning'>Diajukan</p>";
+                                            echo "<p class='text-dark text-center flash-background'>Diajukan</p>";
                                         } elseif ($d['status'] == 'proses') {
                                             echo "<p class='text-info'>Sedang diproses</p>";
                                         } elseif ($d['status'] == 'selesai') {
@@ -282,20 +338,7 @@ if (isset($_POST['tanggapan'])) {
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
 
-<script>
-    // Fungsi untuk mengekspor tabel ke file Excel (.xlsx)
-    function exportTableToExcel(tableID, filename = '') {
-        var table = document.getElementById(tableID);
-
-        // Menggunakan SheetJS untuk mengonversi tabel menjadi file Excel
-        var wb = XLSX.utils.table_to_book(table, {sheet: "Sheet 1"});
-        
-        // Menyimpan file Excel dengan nama yang diberikan
-        XLSX.writeFile(wb, filename + '.xlsx');
-    }
-</script>
     <?php
     include('../../layouts/footer.php');
     ?>

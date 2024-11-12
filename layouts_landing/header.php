@@ -14,7 +14,7 @@ define('BASE_URL', 'http://localhost/pengaduan_masyarakat/');
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="<?= ASSETS_PATH ?>/landing/img/aduan.png" rel="icon">
+  <link href="<?= ASSETS_PATH ?>/assets/images/logos/m.png" rel="icon">
   <link href="landing/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Fonts -->

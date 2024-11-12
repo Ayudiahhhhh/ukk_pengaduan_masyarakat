@@ -126,11 +126,13 @@ if (isset($_POST['ubahadmin'])) {
                                     <div class="tab-pane fade show active" id="v-pills-admin" role="tabpanel" aria-labelledby="v-pills-admin-tab">
                                         <div class="text-center">
                                             <h3>Data Admin</h3>
-                                            <div class="text-end">
-                                                <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalTambah">
-                                                    <i class="ti ti-plus">Tambah Data Petugas</i>
-                                                </button>
-                                            </div>
+                                        </div>
+                                        <div class="text-end">
+                                            <!-- Tombol Export -->
+                                            <button class="btn btn-success btn-sm mb-2" type="button" onclick="exportTableToExcel('myTable', 'data_pengaduan')"><img width="20" height="20" src="https://img.icons8.com/fluency/48/ms-excel.png" alt="ms-excel"/>Export ke Excel</button>
+                                            <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#modalTambah">
+                                                <i class="ti ti-plus">Tambah Data Petugas</i>
+                                            </button>
                                         </div>
                                         <hr />
                                         <!-- Modal Tambah -->
@@ -168,15 +170,16 @@ if (isset($_POST['ubahadmin'])) {
                                                 </div>
                                             </div>
                                         </div>
-                                        <table class="table table-striped table-hover">
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Nama</th>
-                                                <th scope="col">Username</th>
-                                                <th scope="col">No.hp</th>
-                                                <th scope="col">Aksi</th>
+                                        <table class="table table-striped table-hover" id="myTable">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Nama</th>
+                                                    <th scope="col">Username</th>
+                                                    <th scope="col">No.hp</th>
+                                                    <th scope="col">Aksi</th>
 
-                                            </tr>
+                                                </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
@@ -260,12 +263,15 @@ if (isset($_POST['ubahadmin'])) {
                                     <div class="tab-pane fade " id="v-pills-petugas" role="tabpanel" aria-labelledby="v-pills-petugas-tab">
                                         <div class="text-center">
                                             <h3>Data petugas</h3>
-                                            <div class="text-end">
-                                                <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalTambah1">
-                                                    <i class="ti ti-plus">Tambah Data Petugas</i>
-                                                </button>
-                                            </div>
                                         </div>
+                                        <div class="text-end">
+                                            <!-- Tombol Export -->
+                                            <button class="btn btn-success btn-sm mb-2" type="button" onclick="exportTableToExcel('myTable', 'data_pengaduan')"><img width="20" height="20" src="https://img.icons8.com/fluency/48/ms-excel.png" alt="ms-excel"/>Export ke Excel</button>
+                                            <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#modalTambah1">
+                                                <i class="ti ti-plus">Tambah Data Petugas</i>
+                                            </button>
+                                        </div>
+
                                         <hr />
                                         <!-- Modal Tambah -->
                                         <div class="modal fade" id="modalTambah1" tabindex="-1" aria-labelledby="modalTambahLabel" aria-hidden="true">
@@ -302,15 +308,17 @@ if (isset($_POST['ubahadmin'])) {
                                                 </div>
                                             </div>
                                         </div>
-                                        <table class="table table-striped table-hover">
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Nama</th>
-                                                <th scope="col">Username</th>
-                                                <th scope="col">No.hp</th>
-                                                <th scope="col">Aksi</th>
 
-                                            </tr>
+                                        <table class="table table-striped table-hover" id="myTable1">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Nama</th>
+                                                    <th scope="col">Username</th>
+                                                    <th scope="col">No.hp</th>
+                                                    <th scope="col">Aksi</th>
+
+                                                </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
