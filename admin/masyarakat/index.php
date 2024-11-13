@@ -113,16 +113,16 @@ if (isset($_POST['ubahmasyarakat'])) {
                 <div class="card-header">
                     <div class="row">
                         <div class="col-12">
-                            <div class="text-center">
-                                <h3>Data Masyarakat</h3>
-                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
+                    <div class="text-center">
+                        <h3>Data Masyarakat</h3>
+                    </div>
                     <div class="text-end">
-                         <!-- Tombol Export -->
-                    <button class="btn btn-success btn-sm mb-2" type="button" onclick="exportTableToExcel('myTable', 'data_pengaduan')"><img width="20" height="20" src="https://img.icons8.com/fluency/48/ms-excel.png" alt="ms-excel"/>Export ke Excel</button>
+                        <!-- Tombol Export -->
+                        <button class="btn btn-success btn-sm mb-2" type="button" onclick="exportTableToExcel('myTable', 'data_pengaduan')"><img width="20" height="20" src="https://img.icons8.com/fluency/48/ms-excel.png" alt="ms-excel" />Export ke Excel</button>
                         <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#modalTambah">
                             <i class="ti ti-plus">Tambah Data Masyarakat</i>
                         </button>
@@ -173,15 +173,15 @@ if (isset($_POST['ubahmasyarakat'])) {
 
                     <table class="table table-striped table-hover" id="myTable">
                         <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">NIK</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">No.hp</th>
-                            <th scope="col">Aksi</th>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">NIK</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">No.hp</th>
+                                <th scope="col">Aksi</th>
 
-                        </tr>
+                            </tr>
                         </thead>
                         <tbody>
                             <?php

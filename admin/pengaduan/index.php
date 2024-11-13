@@ -158,7 +158,7 @@ if (isset($_POST['tanggapan'])) {
         font-size: 10px;
         font-weight: bold;
         color: #fff;
-        background-color: #007bff; 
+        background-color: #007bff;
         border-radius: 10px;
         border: none;
         cursor: pointer;
@@ -183,17 +183,18 @@ if (isset($_POST['tanggapan'])) {
                 <div class="card-header">
                     <div class="row">
                         <div class="col-12">
-                            <div class="text-center">
-                                <h3>Data Pengaduan</h3>
-                            </div>
+
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-
+                    <div class="text-center">
+                        <h3>Data Pengaduan</h3>
+                    </div>
                     <!-- Tombol Export -->
-                    <button class="btn btn-success btn-sm" type="button" onclick="exportTableToExcel('myTable', 'data_pengaduan')"><img width="20" height="20" src="https://img.icons8.com/fluency/48/ms-excel.png" alt="ms-excel" />Export ke Excel</button>
-
+                    <div class="text-end">
+                        <button class="btn btn-success btn-sm" type="button" onclick="exportTableToExcel('myTable', 'data_pengaduan')"><img width="20" height="20" src="https://img.icons8.com/fluency/48/ms-excel.png" alt="ms-excel" />Export ke Excel</button>
+                    </div>
                     <table class="table table-striped table-hover" id="myTable">
                         <thead>
                             <tr>
@@ -214,12 +215,10 @@ if (isset($_POST['tanggapan'])) {
                                     <td><?= $d['nama']; ?></td>
                                     <td><?= $d['isi_laporan']; ?></td>
                                     <td>
-                                        <!-- Membungkus tombol dalam tag <a> yang mengarah ke foto -->
-                                        <a href="<?= BASE_URL ?>/assets/images/pengaduan/<?= $d['foto']; ?>" target="_blank">
-                                            <button class="button-normal">
-                                                Lihat Foto
-                                            </button>
-                                        </a>
+                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $d['id_pengaduan']; ?>">
+                                            Lihat
+                                        </button>
+
                                     </td>
                                     <td>
                                         <?php
@@ -244,6 +243,29 @@ if (isset($_POST['tanggapan'])) {
                                 //    var_dump($tg);
                                 //    die;     
                                 ?>
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal<?= $d['id_pengaduan']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Lihat Data Aduan</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="" method="post">
+                                                    <div class="mb-3">
+                                                        <label for="foto" class="form-label">Foto</label>
+                                                        <br>
+                                                        <img src="<?= BASE_URL ?>/assets/images/pengaduan/<?= $d['foto']; ?>" alt="Foto Aduan" width="100%">
+                                                        <br>
+                                                        <a href="<?= BASE_URL ?>/assets/images/pengaduan/<?= $d['foto']; ?>" download="" class="btn btn-primary btn-sm mt-3">Download File</a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <!-- Modal Lihat -->
                                 <div class="modal fade" id="modalLihat<?= $d['id_pengaduan']; ?>" tabindex="-1" aria-labelledby="modalTambahLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-xl">
@@ -312,33 +334,35 @@ if (isset($_POST['tanggapan'])) {
                                     </div>
                                 </div>
                 </div>
+            </div>
 
-                <!-- Modal Hapus -->
-                <div class="modal fade" id="modalHapus<?= $d['nik']; ?>" tabindex="-1" aria-labelledby="modalHapus<?= $d['nik']; ?>" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalHapusLabel<?= $d['nik']; ?>">Hapus Aduan</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Apakah Anda yakin ingin menghapus aduan ini?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="?nik=<?= $d['nik']; ?>" class="btn btn-danger">Hapus</a>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                            </div>
+
+            <!-- Modal Hapus -->
+            <div class="modal fade" id="modalHapus<?= $d['nik']; ?>" tabindex="-1" aria-labelledby="modalHapus<?= $d['nik']; ?>" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalHapusLabel<?= $d['nik']; ?>">Hapus Aduan</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Apakah Anda yakin ingin menghapus aduan ini?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="?nik=<?= $d['nik']; ?>" class="btn btn-danger">Hapus</a>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                         </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
-            </tbody>
-            </table>
             </div>
+        <?php endforeach; ?>
+        </tbody>
+        </table>
         </div>
     </div>
+</div>
 
 
-    <?php
-    include('../../layouts/footer.php');
-    ?>
+<?php
+include('../../layouts/footer.php');
+?>
