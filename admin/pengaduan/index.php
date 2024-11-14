@@ -149,22 +149,6 @@ if (isset($_POST['tanggapan'])) {
         cursor: pointer;
         animation: flash 1s infinite;
     }
-
-    .button-normal {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px 20px;
-        font-size: 10px;
-        font-weight: bold;
-        color: #fff;
-        background-color: #007bff;
-        border-radius: 10px;
-        border: none;
-        cursor: pointer;
-        text-align: center;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-    }
 </style>
 <!-- Body Wrapper -->
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
