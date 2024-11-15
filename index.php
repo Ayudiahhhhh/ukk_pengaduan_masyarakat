@@ -35,8 +35,7 @@ include './layouts_landing/header.php';
                         <h1 data-aos="fade-up">Selamat datang di pengaduan masyarakat</h1>
                         <p data-aos="fade-up" data-aos-delay="100">keluarkan semua unek-unek disini</p>
                         <div class="d-grid gap-2 d-md-block">
-                            <a href="<?= BASE_URL ?>auth/register" class="btn btn-primary">Daftar</a>
-                            <a href="<?= BASE_URL ?>auth/login" class="btn btn-primary">Login</a>
+                            <a href="<?= BASE_URL ?>auth/login" class="btn btn-primary">laporkan !!!</a>
                         </div>
                     </div>
                     <div class="col-lg-5 order-1 order-lg-2 aduan data-aos=" zoom-out">

@@ -3,7 +3,7 @@ include('../../database/koneksi.php');
 include('../../layouts/header.php');
 
 
-$sql= "SELECT status, COUNT('status') as count FROM pengaduan GROUP BY status";
+$sql = "SELECT status, COUNT('status') as count FROM pengaduan GROUP BY status";
 $result = mysqli_query($conn, $sql);
 
 if (!$result) {
@@ -53,7 +53,9 @@ mysqli_close($conn);
 
             </div>
             <div class="row">
-
+            <div class="col-5">
+                    <iframe src="https://lottie.host/embed/0986ea90-15b5-4b29-9039-eb73939f5b0f/Fb8jeK90wy.json" width="350" height="350"></iframe>
+                </div>
                 <div class="col-7">
                     <div class="card">
                         <div class="card-body">
@@ -61,61 +63,55 @@ mysqli_close($conn);
                         </div>
                     </div>
                 </div>
-                <div class="col-5">
-                    <iframe src="https://lottie.host/embed/292898f7-1abb-4279-8aed-a98d3df01654/T7fcq1gugM.json" width="350" height="350" frameborder="0" allowfullscreen></iframe>
-                </div>
             </div>
-
-
         </div>
     </div>
-</div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script>
-    const ctx = document.getElementById('myChart');
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['ditolak', '0', 'proses', 'selesai'],
-            datasets: [{
-                label: '# of pengaduan',
-                data: [
-                    <?php echo $status_data['ditolak']; ?>,
-                    <?php echo $status_data['0']; ?>,
-                    <?php echo $status_data['proses']; ?>,
-                    <?php echo $status_data['selesai']; ?>
-                ],
-                backgroundColor: [
-                    '#d63384',
-                    '#FFAE1F',
-                    '#539BFF',
-                    '#13DEB9',
+    <script>
+        const ctx = document.getElementById('myChart');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['ditolak', 'sedang diajukan', 'proses', 'selesai'],
+                datasets: [{
+                    label: '# of pengaduan',
+                    data: [
+                        <?php echo $status_data['ditolak']; ?>,
+                        <?php echo $status_data['0']; ?>,
+                        <?php echo $status_data['proses']; ?>,
+                        <?php echo $status_data['selesai']; ?>
+                    ],
+                    backgroundColor: [
+                        '#d63384',
+                        '#FFAE1F',
+                        '#539BFF',
+                        '#13DEB9',
 
-                ],
-                borderColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 159, 64)',
-                    'rgb(255, 205, 86)',
-                    'rgb(75, 192, 192)',
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
 
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
-</script>
+        });
+    </script>
 
 
-<?php
-include('../../layouts/footer.php');
-?>
+    <?php
+    include('../../layouts/footer.php');
+    ?>
