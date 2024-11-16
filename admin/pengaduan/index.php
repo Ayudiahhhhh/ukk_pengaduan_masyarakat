@@ -5,7 +5,7 @@ include('../../layouts/header.php');
 include('./functions/crud_pengaduan.php');
 if ($_GET["id_pengaduan"]) {
     $id = $_GET["id_pengaduan"];
-    if (hapus($id) > 0) {
+    if (hapus($id)  == true) {
         echo "<script>
                 Swal.fire({
                 title: 'Success',

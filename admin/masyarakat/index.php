@@ -5,7 +5,7 @@ include('../../layouts/header.php');
 include('./functions/crud_masyarakat.php');
 if (isset($_GET["nik"])) {
     $id = $_GET["nik"];
-    if (hapus($id) > 0) {
+    if (hapus($id) == true) {
         echo "
         <script>
                 Swal.fire({
