@@ -136,3 +136,57 @@ function ubah($data, $file)
 
   return true;
 }
+
+
+function ubahprofile($data, $nik){
+  
+  global $conn;
+  $nik_new = $data["nik"];
+  $nik = htmlspecialchars($data["nik"]);
+  $nama = htmlspecialchars($data["nama"]);
+  $username = htmlspecialchars($data["username"]);
+  $username_lama = htmlspecialchars($data["username_lama"]);
+  $telp = htmlspecialchars($data["telp"]);
+
+if ($username != $username_lama) {
+  $sql = "SELECT * FROM masyarakat WHERE username = ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("s", $data['username']);
+  $stmt->execute();
+  $result = $stmt->get_result();}
+  // var_dump($result);
+    // die;
+  if ($result->num_rows > 0) {
+    echo "<script> alert('username sudah terdaftar')</script>";
+    return false;
+  }
+
+  if($nik != $data['nik']){
+    // Cek di tabel masyarakat
+    // "b", "d", "i", "s
+    $sql = "SELECT * FROM masyarakat WHERE nik = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $data['nik']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows > 0) {
+      echo "<script> alert('data anda sudah terdaftar')</script>";
+      return false;
+    }
+
+  }
+  
+
+  $query = "UPDATE `masyarakat` SET 
+         nik = '$nik_new',
+          nama =' $nama',
+          username = '$username',
+          telp= '$telp'
+          WHERE nik = $nik
+  ";
+ 
+mysqli_query($conn, $query);
+
+return true;
+}
+?>

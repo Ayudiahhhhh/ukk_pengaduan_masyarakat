@@ -39,8 +39,8 @@ include './layouts_landing/header.php';
                         </div>
                     </div>
                     <div class="col-lg-5 order-1 order-lg-2 aduan data-aos=" zoom-out">
-                        <img src="<?= ASSETS_PATH ?>/landing/img/aduan.png" class="img-fluid animated" alt="">
-                    </div>
+                    <iframe src="https://lottie.host/embed/0986ea90-15b5-4b29-9039-eb73939f5b0f/Fb8jeK90wy.json" width="350" height="350"></iframe>
+                        </div>
                 </div>
             </div>
 
