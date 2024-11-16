@@ -89,32 +89,6 @@ if (isset($_POST['ubahaduan'])) {
     }
 }
 
-if(ubahprofile($_POST, $_POST['nik'])== true) {
-    echo "<script>
-                Swal.fire({
-                title: 'Success',
-                text: 'Data anda berhasil diubah!',
-                icon: 'success'
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    document.location.href = '" . BASE_URL . "/masyarakat/pengaduan';
-                }
-                });
-        </script>";
-    } else {
-        echo "<script>
-                Swal.fire({
-                title: 'Error',
-                text: 'Data anda gagal diubah!',
-                icon: 'info'
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    document.location.href = '" . BASE_URL . "/masyarakat/pengaduan';
-                }
-                });
-        </script>";
-    }
-    
 ?>
 
 <!-- Body Wrapper -->
@@ -141,7 +115,7 @@ if(ubahprofile($_POST, $_POST['nik'])== true) {
                     </div>
                     <div class="card-body">
                         <div class="text-end">
-                            <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalTambah">
+                            <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#modalTambah">
                                 <i class="ti ti-plus">Tambah Aduan</i>
                             </button>
                         </div>
@@ -183,7 +157,7 @@ if(ubahprofile($_POST, $_POST['nik'])== true) {
                             </div>
                         </div>
 
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover" id="myTable">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>

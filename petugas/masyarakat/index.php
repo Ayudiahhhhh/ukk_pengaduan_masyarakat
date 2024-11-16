@@ -121,7 +121,9 @@ if (isset($_POST['ubahmasyarakat'])) {
                 </div>
                 <div class="card-body">
                     <div class="text-end">
-                        <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalTambah">
+                         <!-- Tombol Export -->
+                         <button class="btn btn-success btn-sm mb-2" type="button" onclick="exportTableToExcel('myTable', 'data_pengaduan')"><img width="20" height="20" src="https://img.icons8.com/fluency/48/ms-excel.png" alt="ms-excel" />Export ke Excel</button>
+                        <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#modalTambah">
                             <i class="ti ti-plus">Tambah Data Masyarakat</i>
                         </button>
                     </div>
@@ -169,8 +171,9 @@ if (isset($_POST['ubahmasyarakat'])) {
                         </div>
                     </div>
 
-                    <table class="table table-striped table-hover">
-                        <tr>
+                    <table class="table table-striped table-hover" id="myTable">
+                    <thead>    
+                    <tr>
                             <th scope="col">#</th>
                             <th scope="col">NIK</th>
                             <th scope="col">Nama</th>

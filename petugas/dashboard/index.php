@@ -1,5 +1,34 @@
 <?php
+include('../../database/koneksi.php');
 include('../../layouts/header.php');
+
+
+$sql = "SELECT status, COUNT('status') as count FROM pengaduan GROUP BY status";
+$result = mysqli_query($conn, $sql);
+
+if (!$result) {
+    die('Query gagal: ' . mysqli_error($conn));
+}
+
+$status_data = [
+    'ditolak' => 0,
+    '0' => 0,
+    'proses' => 0,
+    'selesai' => 0
+];
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $status = $row['status'];
+    $count = $row['count'];
+
+
+    if (isset($status_data[$status])) {
+        $status_data[$status] = $count;
+    }
+}
+
+
+mysqli_close($conn);
 ?>
 
 <!--  Body Wrapper -->
@@ -18,41 +47,70 @@ include('../../layouts/header.php');
         ?>
         <!--  Header End -->
         <div class="container-fluid">
+            <div class="text-center">
 
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td><a href="crud_prngaduan.php">ubah|hapus</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
-                </tbody>
-            </table>
+                <h3 class="mb-3">Selamat datang Sistem Pengaduan Masyarakat</h3>
 
+            </div>
+            <div class="row">
+            <div class="col-5">
+                    <iframe src="https://lottie.host/embed/e911436a-8375-4dd9-8c8b-426895be9b8c/GFgnIHRuM7.json" width="350" height="350"></iframe>
+                </div>
+                <div class="col-7">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
-<?php
-include('../../layouts/footer.php');
-?>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+            const ctx = document.getElementById('myChart');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['ditolak', 'sedang diajukan', 'proses', 'selesai'],
+                    datasets: [{
+                        label: '# of pengaduan',
+                        data: [
+                            <?php echo $status_data['ditolak']; ?>,
+                            <?php echo $status_data['0']; ?>,
+                            <?php echo $status_data['proses']; ?>,
+                            <?php echo $status_data['selesai']; ?>
+                        ],
+                        backgroundColor: [
+                            '#d63384',
+                            '#FFAE1F',
+                            '#539BFF',
+                            '#13DEB9',
+
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        </script>
+
+
+        <?php
+        include('../../layouts/footer.php');
+        ?>

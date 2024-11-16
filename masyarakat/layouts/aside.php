@@ -20,7 +20,7 @@ if (isset($_SESSION['user_type'])) {
       <!-- Sidebar scroll-->
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="#" class="text-nowrap logo-img">
+          <a href="./index.html" class="text-nowrap logo-img">
             <img src="<?= BASE_URL ?>/assets/images/logos/aside.png" width="180" alt="" />
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -35,7 +35,7 @@ if (isset($_SESSION['user_type'])) {
               <span class="hide-menu">Home</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="#" aria-expanded="false">
+              <a class="sidebar-link" href="<?= BASE_URL ?>/masyarakat/dashboard/index.php" aria-expanded="false">
               <i class="ti ti-layout-dashboard"></i>
                 </span>
                 <span class="hide-menu">Dashboard</span>
