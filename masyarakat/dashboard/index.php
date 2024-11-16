@@ -50,6 +50,19 @@ include('../../layouts/header.php');
                 </tbody>
             </table>
 
+            </div>
+            <div class="row">
+                <div class="col-5">
+                <iframe src="https://lottie.host/embed/60bb84e2-9cf9-4ad9-92e1-548d8a25a953/I0hQ7yYGjD.json" width="450" height="450"></iframe>
+                </div>
+                <div class="col-7">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

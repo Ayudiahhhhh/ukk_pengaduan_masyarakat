@@ -89,6 +89,32 @@ if (isset($_POST['ubahaduan'])) {
     }
 }
 
+if(ubahprofile($_POST, $_POST['nik'])== true) {
+    echo "<script>
+                Swal.fire({
+                title: 'Success',
+                text: 'Data anda berhasil diubah!',
+                icon: 'success'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "/masyarakat/pengaduan';
+                }
+                });
+        </script>";
+    } else {
+        echo "<script>
+                Swal.fire({
+                title: 'Error',
+                text: 'Data anda gagal diubah!',
+                icon: 'info'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = '" . BASE_URL . "/masyarakat/pengaduan';
+                }
+                });
+        </script>";
+    }
+    
 ?>
 
 <!-- Body Wrapper -->
