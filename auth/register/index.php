@@ -53,11 +53,9 @@ if (isset($_SESSION['user_type'])) {
                     <div class="card mb-0">
                         <div class="card-body">
                             <a href="./index.html" class="text-nowrap logo-img text-center d-block py-3 w-100">
-                                <img src="<?= BASE_URL ?>/assets/images/logos/aside.png" width="180" alt="">
+                                <img src="<?= BASE_URL ?>/assets/images/logos/dark-logo.svg" width="180" alt="">
                             </a>
-                           <div class="text-center">
-                                <h2>Silahkan daftar</h2>
-                                </div>
+                            <p class="text-center">Your Social Campaigns</p>
                             <form action="" method="post">
                             <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">nik</label>
@@ -84,9 +82,7 @@ if (isset($_SESSION['user_type'])) {
                                     <input type="number" class="form-control" name="telp" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="masukan no hp...">
                                 </div>
                              <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Register</button>
-                             <div class="text-center mt-2">
-                                   Sudah punya akun? <b><a href="http://localhost/pengaduan_masyarakat/auth/login/">Login</a></b>
-                                </div>
+                               
                             </form>
                         </div>
                     </div>

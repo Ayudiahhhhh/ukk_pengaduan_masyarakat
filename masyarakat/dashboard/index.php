@@ -1,31 +1,6 @@
+
 <?php
-include('../../database/koneksi.php');
 include('../../layouts/header.php');
-
-$nik = $_SESSION['user']['nik'];
-$sql = "SELECT status, COUNT('status') as count FROM pengaduan WHERE nik = $nik GROUP BY status ";
-$result = mysqli_query($conn, $sql);
-// var_dump($result);
-// die;
-
-$status_data = [
-    'ditolak' => 0,
-    '0' => 0,
-    'proses' => 0,
-    'selesai' => 0
-];
-
-while ($row = mysqli_fetch_assoc($result)) {
-    $status = $row['status'];
-    $count = $row['count'];
-
-
-    if (isset($status_data[$status])) {
-        $status_data[$status] = $count;
-    }
-}
-
-mysqli_close($conn);
 ?>
 
 <!--  Body Wrapper -->
@@ -44,9 +19,36 @@ mysqli_close($conn);
         ?>
         <!--  Header End -->
         <div class="container-fluid">
-            <div class="text-center">
 
-                <h3 class="mb-3">Selamat datang Distatus aduan terkini</h3>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td><a href="crud_prngaduan.php">ubah|hapus</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td colspan="2">Larry the Bird</td>
+                        <td>@twitter</td>
+                    </tr>
+                </tbody>
+            </table>
 
             </div>
             <div class="row">
@@ -63,52 +65,8 @@ mysqli_close($conn);
             </div>
         </div>
     </div>
+</div>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script>
-        const ctx = document.getElementById('myChart');
-        new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Ditolak', 'Berhasil diajukan', 'sedang diproses', 'Pengaduan selesai'],
-                datasets: [{
-                    label: '# of pengaduan',
-                    data: [
-                        <?php echo $status_data['ditolak']; ?>,
-                        <?php echo $status_data['0']; ?>,
-                        <?php echo $status_data['proses']; ?>,
-                        <?php echo $status_data['selesai']; ?>
-                    ],
-                    backgroundColor: [
-                        '#d63384',
-                        '#FFAE1F',
-                        '#539BFF',
-                        '#13DEB9',
-
-                    ],
-                    borderColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(255, 159, 64)',
-                        'rgb(255, 205, 86)',
-                        'rgb(75, 192, 192)',
-
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
-
-
-    <?php
-    include('../../layouts/footer.php');
-    ?>
+<?php
+include('../../layouts/footer.php');
+?>
