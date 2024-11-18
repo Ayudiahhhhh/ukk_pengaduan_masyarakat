@@ -53,8 +53,7 @@ mysqli_close($conn);
 
             </div>
             <div class="row">
-            <div class="col-5">
-                    <iframe src="https://lottie.host/embed/0986ea90-15b5-4b29-9039-eb73939f5b0f/Fb8jeK90wy.json" width="350" height="350"></iframe>
+            <div class="col-5"><iframe src="https://lottie.host/embed/f08e0071-8f8e-40c8-97d2-29fc73fbc901/7KmWRD0gAb.json" width="350" height="350"></iframe>
                 </div>
                 <div class="col-7">
                     <div class="card">

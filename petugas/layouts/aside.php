@@ -51,6 +51,14 @@ if (isset($_SESSION['user_type'])) {
                 <span class="hide-menu">Masyarakat</span>
               </a>
             </li>
+            <li class="sidebar-item">
+          <a class="sidebar-link" href="<?= BASE_URL ?>/petugas/pengaduan/" aria-expanded="false">
+            <span>
+            <i class="ti ti-user-check"></i>
+            </span>
+            <span class="hide-menu">Data Aduan</span>
+          </a>
+        </li>
           </ul>
         </nav>
         <!-- End Sidebar navigation -->
