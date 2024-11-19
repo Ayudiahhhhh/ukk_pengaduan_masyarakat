@@ -29,7 +29,7 @@ function createTanggapan($post)
   '" . mysqli_real_escape_string($conn, $post['id_pengaduan']) . "',
     '" . mysqli_real_escape_string($conn, $post['tgl_tanggapan']) . "',
       '" . mysqli_real_escape_string($conn, $post['tanggapan_value']) . "',
-            '" . mysqli_real_escape_string($conn, $_SESSION['user']['id_petugas']) . "')";
+            '" . mysqli_real_escape_string($conn, $_SESSION['users']['id_petugas']) . "')";
 
   if (mysqli_query($conn, $sql)) {
     $sql = "UPDATE `pengaduan` SET `status`= '" . mysqli_real_escape_string($conn, $post['status']) . "' WHERE `id_pengaduan`='" . mysqli_real_escape_string($conn, $post['id_pengaduan']) . "'";

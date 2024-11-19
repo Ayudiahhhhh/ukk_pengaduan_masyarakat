@@ -292,19 +292,24 @@ if (isset($_POST['tanggapan'])) {
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
-                                                            <div class="mb-3">
-                                                                <label for="tanggapan" class="form-label">Tanggapan</label>
-                                                                <textarea class="form-control" name="tanggapan_value" id="tanggapan" rows="13" required><?= $tg['tanggapan'] ?></textarea>
-                                                            </div>
-                                                            <select class="form-select" name="status" aria-label="Default select example">
-                                                                <option value="proses">setuju</option>
-                                                                <option value="ditolak">tolak</option>
+                                                        <div class="mb-3">
+                                                            <label for="tanggapan" class="form-label">Tanggapan</label>
+                                                            <textarea class="form-control" name="tanggapan_value" id="tanggapan" rows="13" required><?= $tg['tanggapan'] ?></textarea>
                                                         </div>
+                                                        <select class="form-select" name="status" aria-label="Default select example">
+                                                            <option value="0" <?= ($d['status'] == '0') ? 'selected' : ''; ?>>Sedang dianjukan</option>
+                                                            <option value="proses" <?= ($d['status'] == 'proses') ? 'selected' : ''; ?>>Proses</option>
+                                                            <option value="selesai" <?= ($d['status'] == 'selesai') ? 'selected' : ''; ?>>Selesai</option>
+                                                            <option value="ditolak" <?= ($d['status'] == 'ditolak') ? 'selected' : ''; ?>>Ditolak</option>
                                                         </select>
+                                                    </div>
+
                                                     </div>
                                                     <div class="modal-footer">
                                                         <?php
                                                         if ($d['status'] == 0) {
+                                                        if ($d['status'] == "proses") 
+                                                        if ($d['status'] == 0) 
                                                         ?>
                                                             <button class="btn btn-primary btn-sm" name="tanggapan" type="submit" value="1">simpan</button>
                                                         <?php
