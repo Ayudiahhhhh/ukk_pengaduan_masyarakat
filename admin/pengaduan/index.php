@@ -1,9 +1,9 @@
 <?php
-session_start();
+
 include('../../database/koneksi.php');
 include('../../layouts/header.php');
 include('./functions/crud_pengaduan.php');
-if ($_GET["id_pengaduan"]) {
+if (isset($_GET["id_pengaduan"])) {
     $id = $_GET["id_pengaduan"];
     if (hapus($id)  == true) {
         echo "<script>
@@ -223,7 +223,7 @@ if (isset($_POST['tanggapan'])) {
                                 </tr>
                                 <?php
                                 $id = $d['id_pengaduan'];
-                                $tg = get("SELECT * FROM `tanggapan` WHERE id_pengaduan=$id")[0];
+                                $tg = get("SELECT * FROM `tanggapan` WHERE id_pengaduan=$id");
                                 //    var_dump($tg);
                                 //    die;     
                                 ?>
@@ -294,7 +294,7 @@ if (isset($_POST['tanggapan'])) {
                                                         <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label for="tanggapan" class="form-label">Tanggapan</label>
-                                                            <textarea class="form-control" name="tanggapan_value" id="tanggapan" rows="13" required><?= $tg['tanggapan'] ?></textarea>
+                                                            <textarea class="form-control" name="tanggapan_value" id="tanggapan" rows="13" required><?= isset($tg[0]['tanggapan']) ? $tg[0]['tanggapan'] : ""  ?></textarea>
                                                         </div>
                                                         <select class="form-select" name="status" aria-label="Default select example">
                                                             <option value="0" <?= ($d['status'] == '0') ? 'selected' : ''; ?>>Sedang dianjukan</option>

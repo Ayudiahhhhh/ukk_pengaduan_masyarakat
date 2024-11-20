@@ -28,7 +28,7 @@ function tambah($post, $file)
 {
   global $conn;
 
-  $filePath = '/opt/lampp/htdocs/pengaduan_masyarakat/assets/images/pengaduan/';
+  $filePath = 'assets/images/pengaduan/';
 
   $newFileName = time(); // Nama baru berdasarkan timestamp dan nama asli
 
@@ -90,7 +90,7 @@ function ubah($data, $file)
   $isiaduan = htmlspecialchars($data["isiaduan"]);
 
   if ($file) {
-    $filePath = '/opt/lampp/htdocs/pengaduan_masyarakat/assets/images/pengaduan/';
+    $filePath = '/lampp/htdocs/pengaduan_masyarakat/assets/images/pengaduan/';
 
     $newFileName = time(); // Nama baru berdasarkan timestamp dan nama asli
 

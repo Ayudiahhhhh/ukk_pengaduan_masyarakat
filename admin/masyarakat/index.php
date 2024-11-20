@@ -1,5 +1,4 @@
 <?php
-session_start();
 include('../../database/koneksi.php');
 include('../../layouts/header.php');
 include('./functions/crud_masyarakat.php');
