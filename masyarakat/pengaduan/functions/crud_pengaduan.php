@@ -35,7 +35,7 @@ if (isset($file) && $file['error'] == 0)
   $newFileName = time(); 
 
 
-
+ 
   // Memeriksa tipe file
   $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
   if (!in_array($file['type'], $allowedTypes)) {
