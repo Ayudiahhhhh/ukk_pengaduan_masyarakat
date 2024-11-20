@@ -1,7 +1,5 @@
 <?php
-session_start();
-define('BASE_URL', 'http://localhost/pengaduan_masyarakat');
-
+define('BASE_URL', 'http://localhost/pengaduan_masyarakat');  
 ?>
 <!doctype html>
 <html lang="en">

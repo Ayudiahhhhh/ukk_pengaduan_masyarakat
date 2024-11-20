@@ -1,8 +1,7 @@
 <?php
-
 include('../../database/koneksi.php');
 include('../../layouts/header.php');
-include('./functions/crud_pengaduan.php');
+require('./functions/crud_pengaduan.php');
 if (isset($_GET["id_pengaduan"])) {
     $id = $_GET["id_pengaduan"];
     if (hapus($id)  == true) {
@@ -33,7 +32,7 @@ if (isset($_GET["id_pengaduan"])) {
 }
 if (isset($_POST['tanggapan'])) {
     // cek apakah data berhasil ditambahkan atau tidak
-    if (createTanggapan($_POST) == true) {
+    if (createTanggapan($_POST, $_SESSION) == true) {
         echo "<script>
                 Swal.fire({
                 title: 'Success',
@@ -292,29 +291,29 @@ if (isset($_POST['tanggapan'])) {
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
-                                                        <div class="mb-3">
-                                                            <label for="tanggapan" class="form-label">Tanggapan</label>
-                                                            <textarea class="form-control" name="tanggapan_value" id="tanggapan" rows="13" required><?= isset($tg[0]['tanggapan']) ? $tg[0]['tanggapan'] : ""  ?></textarea>
-                                                        </div>
-                                                        <select class="form-select" name="status" aria-label="Default select example">
+                                                            <div class="mb-3">
+                                                                <label for="tanggapan" class="form-label">Tanggapan</label>
+                                                                <textarea class="form-control" name="tanggapan_value" id="tanggapan" rows="13" required 
+                                                                <?= ($d['status'] == 'selesai' || $d['status'] == 'ditolak') ? 'disabled' : ''; ?>>
+                                                                <?= isset($tg[0]['tanggapan']) ? $tg[0]['tanggapan'] : ""; ?>
+                                                            </textarea>
+                                                            </div>
+                                                            <select class="form-select" name="status" aria-label="Default select example">
                                                             <option value="0" <?= ($d['status'] == '0') ? 'selected' : ''; ?>>Sedang dianjukan</option>
                                                             <option value="proses" <?= ($d['status'] == 'proses') ? 'selected' : ''; ?>>Proses</option>
                                                             <option value="selesai" <?= ($d['status'] == 'selesai') ? 'selected' : ''; ?>>Selesai</option>
                                                             <option value="ditolak" <?= ($d['status'] == 'ditolak') ? 'selected' : ''; ?>>Ditolak</option>
                                                         </select>
                                                     </div>
-
                                                     </div>
                                                     <div class="modal-footer">
                                                         <?php
                                                         if ($d['status'] == 0) {
-                                                        if ($d['status'] == "proses") 
-                                                        if ($d['status'] == 0) 
                                                         ?>
                                                             <button class="btn btn-primary btn-sm" name="tanggapan" type="submit" value="1">simpan</button>
                                                         <?php
                                                         } elseif ($d['status'] == 'proses') { ?>
-                                                            <a href="?id=<?= $d['id_pengaduan'] ?>&status=selesai" class="btn btn-primary btn-sm" onclick="return confirm('selesaikan aduan?')">Selesaikan</a>
+                                                            <button class="btn btn-primary btn-sm" name="tanggapan" type="submit" value="1">selesaikan</button>
                                                         <?php } ?>
 
                                                     </div>

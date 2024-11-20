@@ -1,5 +1,5 @@
 <?php
-include('../../database/koneksi.php');
+
 
 function get($query)
 {
@@ -22,14 +22,14 @@ function get($query)
   return $rows;
 }
 
-function createTanggapan($post)
+function createTanggapan($post, $s)
 {
   global $conn;
   $sql = "INSERT INTO `tanggapan`( `id_pengaduan`, `tgl_tanggapan`, `tanggapan`, `id_petugas`) VALUES (
   '" . mysqli_real_escape_string($conn, $post['id_pengaduan']) . "',
     '" . mysqli_real_escape_string($conn, $post['tgl_tanggapan']) . "',
       '" . mysqli_real_escape_string($conn, $post['tanggapan_value']) . "',
-            '" . mysqli_real_escape_string($conn, $_SESSION['user']['id_petugas']) . "')";
+            '" . mysqli_real_escape_string($conn, $s['user']['id_petugas']) . "')";
 
   if (mysqli_query($conn, $sql)) {
     $sql = "UPDATE `pengaduan` SET `status`= '" . mysqli_real_escape_string($conn, $post['status']) . "' WHERE `id_pengaduan`='" . mysqli_real_escape_string($conn, $post['id_pengaduan']) . "'";

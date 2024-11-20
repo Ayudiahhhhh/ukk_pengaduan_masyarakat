@@ -1,5 +1,4 @@
 <?php
-include('../../database/koneksi.php');
 
 function get($query)
 {
@@ -28,22 +27,28 @@ function tambah($post, $file)
 {
   global $conn;
 
-  $filePath = 'assets/images/pengaduan/';
+  $filePath = '../../../assets/images/pengaduan/';
 
-  $newFileName = time(); // Nama baru berdasarkan timestamp dan nama asli
+  // Memeriksa apakah file diupload dengan benar
+if (isset($file) && $file['error'] == 0) 
+  // Nama baru berdasarkan timestamp
+  $newFileName = time(); 
 
 
 
   // Memeriksa tipe file
   $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
   if (!in_array($file['type'], $allowedTypes)) {
+
+     // Mengambil ekstensi file asli
+     $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+     // Menambahkan ekstensi file pada nama baru
+     $targetFilePath = $filePath . $newFileName . '.' . $extension;
     return false;
   }
 
   // Mengatur jalur lengkap untuk file yang akan disimpan
   $targetFilePath = $filePath . $newFileName;
-  // var_dump($_SESSION);
-  // die;
   // Memindahkan file ke direktori tujuan
   if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
     // echo 'File uploaded successfully as ' . $newFileName;
