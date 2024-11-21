@@ -5,8 +5,8 @@ include('../../layouts/header.php');
 include('./functions/crud_pengaduan.php');
 if (isset($_GET["id_pengaduan"])) {
     $id = $_GET["id_pengaduan"];
-if(hapus($id)  == true){
-        echo"<script>
+    if (hapus($id)  == true) {
+        echo "<script>
                 Swal.fire({
                 title: 'Success',
                 text: 'Pengaduan berhasil dihapus!',
@@ -170,10 +170,14 @@ if (isset($_POST['ubahaduan'])) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach (get("SELECT pengaduan.*, masyarakat.nama FROM pengaduan JOIN masyarakat ON masyarakat.nik = pengaduan.nik") as $no => $d): ?>
+                                <?php
+                                $nik = $_SESSION['user']['nik']
+                                ?>
+                                <?php foreach (get("SELECT pengaduan.*, masyarakat.nama FROM pengaduan JOIN masyarakat ON masyarakat.nik = pengaduan.nik WHERE pengaduan.nik = $nik") as $no => $d): ?>
+
                                     <tr>
                                         <td><?= $no + 1; ?></td>
-                                        <td><?= $d['tgl_pengaduan']; ?></td>
+                                        <td><?= date('d M Y', strtotime($d['tgl_pengaduan'])); ?></td>
                                         <td><?= $d['nama']; ?></td>
                                         <td><?= $d['isi_laporan']; ?></td>
                                         <td><img src="<?= BASE_URL ?>/assets/images/pengaduan/<?= $d['foto']; ?>" alt="Foto Aduan" width="100"></td>
@@ -192,21 +196,21 @@ if (isset($_POST['ubahaduan'])) {
                                         </td>
                                         <td>
                                             <?php
+                                            $id = $d['id_pengaduan'];
+                                            $tg = get("SELECT * FROM `tanggapan` WHERE `id_pengaduan` = $id");
+
+                                            ?>
+                                            <?php
                                             if ($d['status'] == 0) {
                                             ?>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#modalUbah<?= $d['id_pengaduan']; ?>"><i class="ti ti-pencil"></i></a>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#modalHapus<?= $d['id_pengaduan']; ?>"><i class="ti ti-trash"></i></a>
-                                            <?php } else { ?>
+                                            <?php } else if (isset($tg[0]['tanggapan'])) { ?>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#modaltanggapan<?= $d['id_pengaduan']; ?>"><button type="button" class="btn btn-primary btn-sm">Lihat tanggapan</button></a>
                                             <?php } ?>
                                         </td>
                                     </tr>
-                                    <?php
-                                    $id = $d['id_pengaduan'];
-                                    $tg = get("SELECT * FROM `tanggapan` WHERE id_pengaduan=$id");
-                                    //    var_dump($tg);
-                                    //    die;     
-                                    ?>
+
                                     <!-- Modal tanggapan -->
                                     <div class="modal fade" id="modaltanggapan<?= $d['id_pengaduan']; ?>" tabindex="-1" aria-labelledby="modalTambahLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-xl">
@@ -219,11 +223,11 @@ if (isset($_POST['ubahaduan'])) {
                                                     <div class="modal-body">
                                                         <div class="mb-3">
                                                             <label for="tgl_tanggapan" class="form-label">Tgl tanggapan</label>
-                                                            <input type="date" class="form-control" id="tgl_tanggapan" name="tgl_tanggapan" value="<?= $tg['tgl_tanggapan'] ?>" readonly>
+                                                            <input type="date" class="form-control" id="tgl_tanggapan" name="tgl_tanggapan" value="<?= $t[0]['tgl_tanggapan'] ?>" readonly>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="tanggapan" class="form-label">Tanggapan Petugas</label>
-                                                            <textarea class="form-control" name="tanggapan_value" id="tanggapan" rows="13" readonly><?= $tg['tanggapan'] ?></textarea>
+                                                            <textarea class="form-control" name="tanggapan_value" id="tanggapan" rows="13" readonly><?= $tg[0]['tanggapan'] ?></textarea>
                                                         </div>
                                                 </form>
                                             </div>

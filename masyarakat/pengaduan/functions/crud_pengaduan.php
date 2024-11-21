@@ -22,28 +22,18 @@ function get($query)
 }
 
 
-
 function tambah($post, $file)
 {
   global $conn;
 
-  $filePath = '../../../assets/images/pengaduan/';
+  
+  $filePath = '../../assets/images/pengaduan/';
+  $fileInfo = pathinfo($file['name']);
+  $fileExtension = strtolower($fileInfo['extension']); // Mengambil ekstensi dan menurunkannya ke huruf kecil
 
-  // Memeriksa apakah file diupload dengan benar
-if (isset($file) && $file['error'] == 0) 
-  // Nama baru berdasarkan timestamp
-  $newFileName = time(); 
-
-
- 
-  // Memeriksa tipe file
-  $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+  $newFileName = time() . '.' . $fileExtension;
+  $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
   if (!in_array($file['type'], $allowedTypes)) {
-
-     // Mengambil ekstensi file asli
-     $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-     // Menambahkan ekstensi file pada nama baru
-     $targetFilePath = $filePath . $newFileName . '.' . $extension;
     return false;
   }
 
@@ -77,6 +67,16 @@ if (isset($file) && $file['error'] == 0)
 function hapus($id)
 {
   global $conn;
+  
+  $filePath = '../../assets/images/pengaduan/';
+
+  $result = get("SELECT foto FROM pengaduan WHERE id_pengaduan = '$id'");
+   
+  $oldFileName = $result[0]['foto'];  // File lama
+
+  if (!empty($oldFileName) && file_exists($filePath . $oldFileName)) {
+    unlink($filePath . $oldFileName); // Hapus file lama
+  }
   mysqli_query($conn, "DELETE FROM `pengaduan` WHERE id_pengaduan=$id");
 
   return true;
@@ -95,24 +95,27 @@ function ubah($data, $file)
   $isiaduan = htmlspecialchars($data["isiaduan"]);
 
   if ($file) {
-    $filePath = '/lampp/htdocs/pengaduan_masyarakat/assets/images/pengaduan/';
+    $filePath = '../../assets/images/pengaduan/';
+    $fileInfo = pathinfo($file['file']['name']);
+    $fileExtension = strtolower($fileInfo['extension']); // Mengambil ekstensi dan menurunkannya ke huruf kecil
 
-    $newFileName = time(); // Nama baru berdasarkan timestamp dan nama asli
+    $newFileName = time() . '.' . $fileExtension;
 
-    
+
     // Memeriksa tipe file
-    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
     if (!in_array($file['file']['type'], $allowedTypes)) {
-      
+
       return false;
     }
-    
+
     // Mengatur jalur lengkap untuk file yang akan disimpan
     $targetFilePath = $filePath . $newFileName;
+
     // var_dump($_SESSION);
     // die;
     // Memindahkan file ke direktori tujuan
-    
+
     if (move_uploaded_file($file['file']['tmp_name'], $targetFilePath)) {
       $query = "UPDATE `pengaduan` SET 
          tgl_pengaduan = '$tgl_pengaduan',
@@ -121,6 +124,13 @@ function ubah($data, $file)
           foto= '$newFileName'
           WHERE id_pengaduan = $id_pengaduan
   ";
+      $result = get("SELECT foto FROM pengaduan WHERE id_pengaduan = '$id_pengaduan'");
+   
+      $oldFileName = $result[0]['foto'];  // File lama
+
+      if (!empty($oldFileName) && file_exists($filePath . $oldFileName)) {
+        unlink($filePath . $oldFileName); // Hapus file lama
+      }
     } else {
 
       return false;
@@ -143,8 +153,9 @@ function ubah($data, $file)
 }
 
 
-function ubahprofile($data, $nik){
-  
+function ubahprofile($data, $nik)
+{
+
   global $conn;
   $nik_new = $data["nik"];
   $nik = htmlspecialchars($data["nik"]);
@@ -153,20 +164,21 @@ function ubahprofile($data, $nik){
   $username_lama = htmlspecialchars($data["username_lama"]);
   $telp = htmlspecialchars($data["telp"]);
 
-if ($username != $username_lama) {
-  $sql = "SELECT * FROM masyarakat WHERE username = ?";
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("s", $data['username']);
-  $stmt->execute();
-  $result = $stmt->get_result();}
+  if ($username != $username_lama) {
+    $sql = "SELECT * FROM masyarakat WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $data['username']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+  }
   // var_dump($result);
-    // die;
+  // die;
   if ($result->num_rows > 0) {
     echo "<script> alert('username sudah terdaftar')</script>";
     return false;
   }
 
-  if($nik != $data['nik']){
+  if ($nik != $data['nik']) {
     // Cek di tabel masyarakat
     // "b", "d", "i", "s
     $sql = "SELECT * FROM masyarakat WHERE nik = ?";
@@ -178,9 +190,8 @@ if ($username != $username_lama) {
       echo "<script> alert('data anda sudah terdaftar')</script>";
       return false;
     }
-
   }
-  
+
 
   $query = "UPDATE `masyarakat` SET 
          nik = '$nik_new',
@@ -189,9 +200,8 @@ if ($username != $username_lama) {
           telp= '$telp'
           WHERE nik = $nik
   ";
- 
-mysqli_query($conn, $query);
 
-return true;
+  mysqli_query($conn, $query);
+
+  return true;
 }
-?>

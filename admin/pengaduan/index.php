@@ -293,10 +293,8 @@ if (isset($_POST['tanggapan'])) {
                                                         <div class="col-lg-6">
                                                             <div class="mb-3">
                                                                 <label for="tanggapan" class="form-label">Tanggapan</label>
-                                                                <textarea class="form-control" name="tanggapan_value" id="tanggapan" rows="13" required 
-                                                                <?= ($d['status'] == 'selesai' || $d['status'] == 'ditolak') ? 'disabled' : ''; ?>>
-                                                                <?= isset($tg[0]['tanggapan']) ? $tg[0]['tanggapan'] : ""; ?>
-                                                            </textarea>
+                                                                <textarea class="form-control" name="tanggapan_value" id="tanggapan" rows="13" required
+                                                                <?= ($d['status'] == 'selesai' || $d['status'] == 'ditolak') ? 'disabled' : ''; ?>><?= isset($tg[0]['tanggapan']) ? $tg[0]['tanggapan'] : ""; ?></textarea>
                                                             </div>
                                                             <select class="form-select" name="status" aria-label="Default select example">
                                                             <option value="0" <?= ($d['status'] == '0') ? 'selected' : ''; ?>>Sedang dianjukan</option>
