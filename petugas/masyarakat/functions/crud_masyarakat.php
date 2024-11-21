@@ -1,6 +1,4 @@
 <?php
-include('../../database/koneksi.php');
-
 function get($query)
 {
   global $conn;
