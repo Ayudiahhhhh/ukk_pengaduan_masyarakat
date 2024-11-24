@@ -19,7 +19,6 @@ include('../function/login.php');
  
 ?>
 <?php 
-// var_dump($_SESSION);
 
 // var_dump($_SESSION); die;
 if (isset($_SESSION['user_type'])) {
@@ -64,7 +63,7 @@ if (isset($_SESSION['user_type'])) {
                                
                                 <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</button>
                                 <div class="text-center mt-2">
-                                    belum punya akun? <b><a href="http://localhost/pengaduan_masyarakat/auth/register/">Daftar sekarang</a></b>
+                                    belum punya akun? <b><a href="<?= BASE_URL ?>/auth/register/">Daftar sekarang</a></b>
                                 </div>
                                 
                             </form>

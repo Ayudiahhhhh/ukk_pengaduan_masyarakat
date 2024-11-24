@@ -74,57 +74,79 @@ function hapus($id)
 
 
 
-function ubah($data, $nik){
-  
-  global $conn;
-  $nik_new = $data["nik"];
-  $nik = htmlspecialchars($data["nik"]);
-  $nama = htmlspecialchars($data["nama"]);
-  $username = htmlspecialchars($data["username"]);
-  $username_lama = htmlspecialchars($data["username_lama"]);
-  $telp = htmlspecialchars($data["telp"]);
+function ubah($data, $nik_lama) {
+    global $conn;
 
-if ($username != $username_lama) {
-  $sql = "SELECT * FROM masyarakat WHERE username = ?";
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("s", $data['username']);
-  $stmt->execute();
-  $result = $stmt->get_result();}
-  // var_dump($result);
-    // die;
-  if ($result->num_rows > 0) {
-    echo "<script> alert('username sudah terdaftar')</script>";
-    return false;
-  }
+    // Ambil data baru dari $data
+    $nik_baru = htmlspecialchars($data["nik"]);
+    $nama = htmlspecialchars($data["nama"]);
+    $username = htmlspecialchars($data["username"]);
+    $username_lama = htmlspecialchars($data["username_lama"]);
+    $telp = htmlspecialchars($data["telp"]);
 
-  if($nik != $data['nik']){
-    // Cek di tabel masyarakat
-    // "b", "d", "i", "s
-    $sql = "SELECT * FROM masyarakat WHERE nik = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $data['nik']);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-      echo "<script> alert('data anda sudah terdaftar')</script>";
-      return false;
+    // Cek apakah username diubah dan validasi jika sudah terdaftar
+    if ($username != $username_lama) {
+        $sql = "SELECT * FROM masyarakat WHERE username = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $data['username']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            echo "<script>alert('Username sudah terdaftar');</script>";
+            return false;
+        }
     }
 
-  }
-  
+    // Cek apakah NIK diubah dan validasi jika sudah terdaftar
+    if ($nik_baru != $nik_lama) {
+        $sql = "SELECT * FROM masyarakat WHERE nik = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $nik_baru);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-  $query = "UPDATE `masyarakat` SET 
-         nik = '$nik_new',
-          nama =' $nama',
-          username = '$username',
-          telp= '$telp'
-          WHERE nik = $nik
-  ";
- 
-mysqli_query($conn, $query);
+        if ($result->num_rows > 0) {
+            echo "<script>alert('Data dengan NIK tersebut sudah terdaftar');</script>";
+            return false;
+        }
+    }
 
-return true;
+    // Update data masyarakat
+    $query = $query = "UPDATE masyarakat SET 
+    nik = ?, 
+    nama = ?, 
+    username = ?, 
+    telp = ? 
+  WHERE nik = ?";
+
+// Masukkan semua 5 nilai ke dalam bind_param
+$stmt = $conn->prepare($query);
+$stmt->bind_param("sssss", $nik_baru, $nama, $username, $telp, $nik_lama);
+
+// Eksekusi query
+if ($stmt->execute()) {
+echo "<script>alert('Data berhasil diubah');</script>";
+} else {
+var_dump($stmt->error); // Debug jika ada error
 }
+$stmt = $conn->prepare($query);
+
+    // Pastikan bind_param sesuai urutan
+    $stmt->bind_param("sssss", $nik_baru, $nama, $username, $telp, $nik_lama);
+
+    // Jalankan query dan cek hasil
+    if ($stmt->execute()) {
+        echo "<script>alert('Data berhasil diubah');</script>";
+        return true;
+    } else {
+        var_dump($stmt->error); // Debug query error
+        echo "<script>alert('Gagal memperbarui data');</script>";
+        return false;
+    }
+}
+
+
 
 
 

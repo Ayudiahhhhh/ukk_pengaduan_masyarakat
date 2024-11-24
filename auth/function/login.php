@@ -14,8 +14,8 @@ function login($username, $password) {
  
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
+        
         // Verifikasi password
-       
         if (password_verify($password, $user['password'])) {
             
             $_SESSION['user_type'] = 'masyarakat';

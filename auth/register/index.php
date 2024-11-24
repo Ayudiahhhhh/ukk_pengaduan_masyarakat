@@ -10,7 +10,7 @@ if (isset($_POST['nik'])) {
                 icon: 'success'
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    document.location.href = '" . BASE_URL . "/auth/login';
+                    document.location.href = '" . BASE_URL . "/auth/register';
                 }
                 });
         </script>";   
@@ -22,7 +22,7 @@ if (isset($_POST['nik'])) {
                 icon: 'info'
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    document.location.href = '" . BASE_URL . "/auth/login';
+                    document.location.href = '" . BASE_URL . "/auth/register';
                 }
                 });
         </script>";
@@ -85,7 +85,7 @@ if (isset($_SESSION['user_type'])) {
                                 </div>
                              <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Register</button>
                              <div class="text-center mt-2">
-                                   Sudah punya akun? <b><a href="http://localhost/pengaduan_masyarakat/auth/login/">Login</a></b>
+                                   Sudah punya akun? <b><a href="<?= BASE_URL ?>/auth/login/">Login</a></b>
                                 </div>
                             </form>
                         </div>
